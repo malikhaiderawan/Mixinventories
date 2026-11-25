@@ -15895,8 +15895,7 @@ body:has(#product-detail-modal.is-open) #orvel-concierge-widget .concierge-tease
 .concierge-toggle,
 .concierge-fab,
 .concierge-btn,
-button[class*="concierge"],
-button[id*="concierge"] {
+.concierge-launcher-btn {
   display: inline-flex !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -15968,8 +15967,7 @@ button[id*="concierge"] {
 .concierge-toggle,
 .concierge-fab,
 .concierge-btn,
-button[class*="concierge"],
-button[id*="concierge"] {
+.concierge-launcher-btn {
   display: inline-flex !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -16443,29 +16441,29 @@ button[id*="concierge"] {
   }
 }
 
-/* 3. Make all clickable chatbot buttons clearly responsive to mouse cursor */
-.concierge-panel,
-#orvel-concierge-panel {
+/* 3. Make all clickable chatbot buttons clearly responsive to mouse cursor when open */
+.concierge-panel.is-open,
+#orvel-concierge-panel.is-open {
   pointer-events: auto !important;
 }
 
-.concierge-panel button,
-.concierge-panel .btn-concierge-action,
-.concierge-panel .concierge-chip,
-.concierge-panel [role="button"],
+.concierge-panel.is-open button,
+.concierge-panel.is-open .btn-concierge-action,
+.concierge-panel.is-open .concierge-chip,
+.concierge-panel.is-open [role="button"],
 .concierge-launcher-btn,
-#concierge-btn-close,
-#concierge-btn-expand,
-#concierge-btn-reset,
-#concierge-btn-mic,
-.concierge-send-btn {
+.concierge-panel.is-open #concierge-btn-close,
+.concierge-panel.is-open #concierge-btn-expand,
+.concierge-panel.is-open #concierge-btn-reset,
+.concierge-panel.is-open #concierge-btn-mic,
+.concierge-panel.is-open .concierge-send-btn {
   cursor: pointer !important;
   pointer-events: auto !important;
 }
 
-.concierge-panel input,
-.concierge-panel textarea,
-#concierge-input-field {
+.concierge-panel.is-open input,
+.concierge-panel.is-open textarea,
+.concierge-panel.is-open #concierge-input-field {
   cursor: text !important;
   pointer-events: auto !important;
 }
@@ -17941,10 +17939,9 @@ body:has(#preloader:not(.is-hidden)) #concierge-launcher {
 }
 
 /* 4. Fix Cursor Visibility across Concierge, Drawer & Interactive Elements */
-.concierge-panel,
-.concierge-panel *,
-.orvel-concierge-widget,
-.orvel-concierge-widget *,
+.concierge-panel.is-open,
+.concierge-panel.is-open *,
+.concierge-launcher-btn,
 .mobile-nav-drawer,
 .mobile-nav-drawer *,
 .orvel-floating-whatsapp,
@@ -17952,29 +17949,29 @@ body:has(#preloader:not(.is-hidden)) #concierge-launcher {
   cursor: auto !important;
 }
 
-.concierge-panel button,
-.concierge-panel a,
-.concierge-panel [role="button"],
-.concierge-panel .concierge-suggestion-chip,
-.concierge-panel .concierge-chip,
+.concierge-panel.is-open button,
+.concierge-panel.is-open a,
+.concierge-panel.is-open [role="button"],
+.concierge-panel.is-open .concierge-suggestion-chip,
+.concierge-panel.is-open .concierge-chip,
 .concierge-launcher-btn,
 .mobile-drawer-close-btn,
 .mobile-drawer-wa-btn,
 .orvel-floating-whatsapp,
-#concierge-btn-minimize,
-#concierge-btn-close,
-#concierge-btn-expand,
-#concierge-btn-reset,
-#concierge-btn-wa,
-#concierge-btn-mic,
-.concierge-send-btn {
+.concierge-panel.is-open #concierge-btn-minimize,
+.concierge-panel.is-open #concierge-btn-close,
+.concierge-panel.is-open #concierge-btn-expand,
+.concierge-panel.is-open #concierge-btn-reset,
+.concierge-panel.is-open #concierge-btn-wa,
+.concierge-panel.is-open #concierge-btn-mic,
+.concierge-panel.is-open .concierge-send-btn {
   cursor: pointer !important;
   pointer-events: auto !important;
 }
 
-.concierge-panel input,
-.concierge-panel textarea,
-#concierge-input-field {
+.concierge-panel.is-open input,
+.concierge-panel.is-open textarea,
+.concierge-panel.is-open #concierge-input-field {
   cursor: text !important;
   pointer-events: auto !important;
 }
@@ -19886,7 +19883,8 @@ section#anatomy {
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
-    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
     background: radial-gradient(ellipse 76% 68% at 72% 48%, rgba(195, 161, 109, 0.13) 0%, rgba(12, 11, 9, 0.98) 58%, #070709 100%) !important;
   }
 
@@ -20109,7 +20107,7 @@ section#anatomy {
     padding: 5px 8px !important;
     margin: 0 auto !important;
     transform: none !important;
-    z-index: 6 !important;
+    z-index: 2000 !important;
   }
 
   #hero .orvel-hud-btn,
@@ -21090,4 +21088,41 @@ html body footer#contact.site-footer .footer-bottom {
   background: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(198, 164, 107, 0.45) !important;
   color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   FINAL AUTHORITATIVE STACKING & POINTER-EVENTS GUARANTEES FOR HERO HUD
+   ========================================================================== */
+#orvel-concierge-panel:not(.is-open),
+#orvel-concierge-panel:not(.is-open) *,
+.concierge-panel:not(.is-open),
+.concierge-panel:not(.is-open) * {
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+#hero .orvel-watch-widget,
+#hero .hero-watch-wrap {
+  transform-style: flat !important;
+  isolation: isolate;
+}
+
+#hero .orvel-watch-halo,
+#hero .orvel-tilt-stage,
+#hero #orvel3DAssembly,
+#hero .orvel-layer,
+#hero .orvel-callout-svg,
+#hero .orvel-callout-labels {
+  pointer-events: none !important;
+}
+
+#hero .orvel-watch-hud {
+  position: relative !important;
+  z-index: 2000 !important;
+  pointer-events: auto !important;
+  transform-style: flat !important;
+}
+
+#hero .orvel-watch-hud * {
+  pointer-events: auto !important;
 }
