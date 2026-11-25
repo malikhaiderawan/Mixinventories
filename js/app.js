@@ -574,6 +574,7 @@ class OrvelApp {
       const menu = document.createElement('div');
       menu.className = 'custom-select-menu';
       menu.setAttribute('role', 'listbox');
+      menu.setAttribute('data-lenis-prevent', '');
 
       const syncUI = () => {
         const activeOpt = select.options[select.selectedIndex] || select.options[0];
