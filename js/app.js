@@ -2738,13 +2738,7 @@ function initOrvelExplodedHeroWatch() {
 
   function triggerStageTransition(newStageIdx, customTargetP, dampingSpeed) {
     currentStageIdx = newStageIdx;
-    stageChangeTime = performance.now();
-    touchStageChangeTime = stageChangeTime;
-    if (newStageIdx === 0) {
-      setHeaderVisibility(true);
-    } else {
-      setHeaderVisibility(false);
-    }
+    const prevTargetP = st.targetP;
     st.targetP = customTargetP !== undefined ? customTargetP : stageTargets[newStageIdx];
     st.currentDamping = dampingSpeed || 0.068;
     st.cursorActive = false;   // Always open into full Picture 2 right-expanded pose first!
@@ -2757,13 +2751,14 @@ function initOrvelExplodedHeroWatch() {
     st.phaseStartTime = performance.now();
     st.anchorMouseX = null;
     st.anchorMouseY = null;
-    st.exitUnits = 0;
-    if (newStageIdx === 2) {
-      st.option3ArrivedTime = performance.now();
+    if (st.targetP > 0.5 && prevTargetP < st.targetP) {
+      st.rotorVel += 10;
     }
-    // Sync HUD button active state (syncHeroStoryText is ONLY called from phaseBtns click per instructions)
     for (let i = 0; i < phaseBtns.length; i++) {
-      phaseBtns[i].classList.toggle('is-active', i === newStageIdx);
+      const isMatch = i === newStageIdx;
+      phaseBtns[i].classList.toggle('is-active', isMatch);
+      phaseBtns[i].classList.toggle('active', isMatch);
+      phaseBtns[i].setAttribute('aria-pressed', isMatch ? 'true' : 'false');
     }
     if (widgetEl) {
       widgetEl.setAttribute('data-stage', String(newStageIdx));
@@ -2773,9 +2768,7 @@ function initOrvelExplodedHeroWatch() {
     if (typeof scheduleCalloutVisibility === 'function') {
       scheduleCalloutVisibility(newStageIdx);
     }
-    // Update left hero story text smoothly for this stage
     syncHeroStoryText(newStageIdx, true);
-    // Update luxury stage dots
     _updateStageDots(newStageIdx);
   }
 
@@ -2940,44 +2933,51 @@ function initOrvelExplodedHeroWatch() {
     io.observe(heroSectionEl);
   }
 
-  // Accurate Button Click -> Let unified scroll/stage controller stay 100% synced!
+  let isSliderDragging = false;
+  const endSliderDrag = () => { isSliderDragging = false; };
+  sliderEl.addEventListener('pointerdown', () => { isSliderDragging = true; }, { passive: true });
+  sliderEl.addEventListener('mousedown', () => { isSliderDragging = true; }, { passive: true });
+  sliderEl.addEventListener('touchstart', () => { isSliderDragging = true; }, { passive: true });
+  sliderEl.addEventListener('change', endSliderDrag);
+  window.addEventListener('pointerup', endSliderDrag, { passive: true });
+  window.addEventListener('mouseup', endSliderDrag, { passive: true });
+  window.addEventListener('touchend', endSliderDrag, { passive: true });
+
+  // HUD Button Click -> Rotate/Expand Watch + Sync Left Story Text & Dots
   phaseBtns.forEach((btn, idx) => {
     btn.addEventListener('click', () => {
-      window._orvelManualHud = true;
-      window._orvelManualHudScrollY = window.scrollY || window.pageYOffset || 0;
-      syncHeroStoryText(idx, true);
       triggerStageTransition(idx, parseFloat(btn.dataset.orvelPhase), window.innerWidth <= 1030 ? 0.14 : 0.095);
-      if (typeof window.__orvelSyncScrollStep === 'function') {
-        window.__orvelSyncScrollStep(idx);
-      }
     });
   });
 
+  // Slider Drag / Input -> Continuous Watch Expansion & Rotation
   sliderEl.addEventListener('input', (e) => {
-    const val = Number(e.target.value) / 100;
+    const rawVal = Number(e.target.value);
+    const val = rawVal / 100;
     const idx = val < 0.24 ? 0 : (val < 0.65 ? 1 : 2);
+    const prevTargetP = st.targetP;
+    lastSliderVal = rawVal;
     st.targetP = val;
-    st.currentDamping = 0.12;
+    st.currentDamping = 0.16;
+    if (val > 0.5 && prevTargetP <= 0.5) {
+      st.rotorVel += 10;
+    }
     if (idx !== currentStageIdx) {
       currentStageIdx = idx;
-      window._orvelManualHud = true;
-      window._orvelManualHudScrollY = window.scrollY || window.pageYOffset || 0;
       syncHeroStoryText(idx, true);
       for (let i = 0; i < phaseBtns.length; i++) {
-        phaseBtns[i].classList.toggle('is-active', i === idx);
+        const isMatch = i === idx;
+        phaseBtns[i].classList.toggle('is-active', isMatch);
+        phaseBtns[i].classList.toggle('active', isMatch);
+        phaseBtns[i].setAttribute('aria-pressed', isMatch ? 'true' : 'false');
       }
       if (widgetEl) {
         widgetEl.setAttribute('data-stage', String(idx));
-        widgetEl.setAttribute('data-explode-state', idx === 1 ? 'exploded' : (idx === 2 ? 'calibre' : 'assembled'));
+        widgetEl.setAttribute('data-explode-state', idx >= 1 ? 'exploded' : 'assembled');
+        widgetEl.setAttribute('data-flip-state', idx === 2 ? 'flipped' : 'front');
       }
-      if (idx === 1) {
-        document.documentElement.classList.add('orvel-hero-exploded', 'orvel-scrolled-tags-on');
-      } else if (idx === 0) {
-        document.documentElement.classList.remove('orvel-hero-exploded', 'orvel-scrolled-tags-on');
-      }
-      if (typeof window.__orvelSyncScrollStep === 'function') {
-        window.__orvelSyncScrollStep(idx);
-      }
+      scheduleCalloutVisibility(idx);
+      _updateStageDots(idx);
     }
   });
 
@@ -3003,25 +3003,6 @@ function initOrvelExplodedHeroWatch() {
     st.pointerY = 0;
   }, { passive: true });
 
-  // LENIS & NATIVE BROWSER SCROLL LOCKING:
-  // Prevents the window/header from scrolling or jittering during Option 1 -> Option 2 -> Option 3
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
-
-  const unlockHeroScroll = () => {
-    if (window.lenis && typeof window.lenis.start === 'function') {
-      window.lenis.start();
-    }
-  };
-
-  // When clicking any anchor/nav link, unlock Lenis so smooth scroll works
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener('click', () => {
-      unlockHeroScroll();
-    });
-  });
-
   // Mobile / Tablet Horizontal Touch Swipe on Watch Widget
   let touchStartX = 0;
   let touchStartY = 0;
@@ -3042,236 +3023,6 @@ function initOrvelExplodedHeroWatch() {
       }
     }
   }, { passive: true });
-
-  // --------------------------------------------------------------------------
-  // LUXURY WATCH STAGE CONTROLLER (SCROLL DOWN -> EXPAND, SCROLL UP -> REVERSE)
-  // --------------------------------------------------------------------------
-  let isGlidingToNext = false;
-  function scrollToNextSection() {
-    const target = document.getElementById('bento-collections') ||
-      document.querySelector('main > section:nth-of-type(2)');
-    if (!target) return;
-    const header = document.getElementById('site-header');
-    const offset = header ? header.offsetHeight : 70;
-    const targetY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset);
-
-    isGlidingToNext = true;
-    if (window.lenis && typeof window.lenis.start === 'function') {
-      window.lenis.start();
-    }
-    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-      window.lenis.scrollTo(targetY, {
-        duration: 0.85,
-        onComplete: () => { isGlidingToNext = false; }
-      });
-    } else {
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
-      setTimeout(() => { isGlidingToNext = false; }, 900);
-    }
-  }
-
-  // Expose 3D animation phase sync for unified scroll controller
-  window.__orvelSyncWatchAnimation = function (stageIdx, customTargetP) {
-    currentStageIdx = stageIdx;
-    activeStoryIdx = stageIdx;
-    const prevTargetP = st.targetP;
-    st.targetP = customTargetP !== undefined
-      ? customTargetP
-      : (stageIdx === 2 ? 1 : (stageTargets[stageIdx] ?? 0));
-    st.currentDamping = window.innerWidth <= 1030 ? 0.15 : 0.105;
-    st.cursorActive = false;
-    st.pointerX = 0;
-    st.pointerY = 0;
-    st.smoothCursorX = 0;
-    st.smoothCursorY = 0;
-    st.bezelCursorX = 0;
-    st.bezelCursorY = 0;
-    st.phaseStartTime = performance.now();
-    if (st.targetP > 0.5 && prevTargetP < st.targetP) {
-      st.rotorVel += 10;
-    }
-    for (let i = 0; i < phaseBtns.length; i++) {
-      phaseBtns[i].classList.toggle('is-active', i === stageIdx);
-    }
-    scheduleCalloutVisibility(stageIdx);
-    _updateStageDots(stageIdx);
-  };
-
-  let gestureConsumed = false;
-  let gestureTimer = null;
-  let stageChangeTime = 0;
-
-  window.addEventListener('wheel', (e) => {
-    // All viewports handled exclusively by initOrvelUnifiedFiveScrollHeroAllDevices
-    return;
-
-    // If user has already scrolled past the hero section (> 30px), allow 100% natural normal scroll
-    if (window.scrollY > 30 || !st.isHeroVisible) {
-      isGlidingToNext = false;
-      return;
-    }
-
-    if (isGlidingToNext) {
-      // Swallowing wheel ticks during glide transition so momentum doesn't fight Lenis
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      return;
-    }
-
-    const scrollingDown = e.deltaY > 0;
-    const scrollingUp = e.deltaY < 0;
-    const absDelta = Math.abs(e.deltaY);
-    if (absDelta < 4) return;
-
-    const now = performance.now();
-
-    // Reset gesture burst timer (clears consumed lock after 350ms of silence between gestures)
-    clearTimeout(gestureTimer);
-    gestureTimer = setTimeout(() => {
-      gestureConsumed = false;
-    }, 350);
-
-    // WHILE IN HERO (scrollY <= 25): STRICT PINNED STAGE STEPPING
-    if (window.scrollY <= 25) {
-      // If this swipe gesture has already triggered a transition, SWALLOW ALL REMAINING MOMENTUM TICKS!
-      if (gestureConsumed) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-
-      const now = performance.now();
-      // Enforce minimum cooldown of 750ms between stage steps
-      if (now - stageChangeTime < 750) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-
-      // 1. SCROLL DOWN
-      if (scrollingDown) {
-        if (currentStageIdx === 0) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          gestureConsumed = true;
-          triggerStageTransition(1, stageTargets[1], 0.075);
-          return;
-        }
-
-        if (currentStageIdx === 1) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          gestureConsumed = true;
-          triggerStageTransition(2, stageTargets[2], 0.075);
-          return;
-        }
-
-        if (currentStageIdx >= 2) {
-          // User is in Stage 2 and intentionally swiped down on a NEW gesture
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          gestureConsumed = true;
-          scrollToNextSection();
-          return;
-        }
-      }
-
-      // 2. SCROLL UP (Reversing stages inside Hero)
-      if (scrollingUp) {
-        if (currentStageIdx === 2) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          gestureConsumed = true;
-          triggerStageTransition(1, stageTargets[1], 0.075);
-          return;
-        }
-        if (currentStageIdx === 1) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          gestureConsumed = true;
-          triggerStageTransition(0, stageTargets[0], 0.075);
-          return;
-        }
-        if (currentStageIdx === 0) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          return;
-        }
-      }
-    }
-  }, { passive: false, capture: true });
-
-  // Touch scroll stepping for mobile / tablet
-  let touchScrollStartY = 0;
-  let touchGestureConsumed = false;
-  let touchStageChangeTime = 0;
-
-  window.addEventListener('touchstart', (e) => {
-    if (!e.touches[0]) return;
-    touchScrollStartY = e.touches[0].clientY;
-    touchGestureConsumed = false;
-  }, { passive: true });
-
-  window.addEventListener('touchend', () => {
-    touchGestureConsumed = false;
-  }, { passive: true });
-
-  window.addEventListener('touchmove', (e) => {
-    // All viewports handled exclusively by initOrvelUnifiedFiveScrollHeroAllDevices
-    return;
-    if (window.scrollY > 30 || !st.isHeroVisible || isGlidingToNext) return;
-    if (!e.touches[0]) return;
-
-    const dy = touchScrollStartY - e.touches[0].clientY; // Positive = swipe up / scroll down
-    if (Math.abs(dy) < 18) return;
-
-    const now = performance.now();
-
-    if (window.scrollY <= 25) {
-      if (touchGestureConsumed || (now - touchStageChangeTime < 500)) {
-        if (e.cancelable) e.preventDefault();
-        return;
-      }
-
-      if (dy > 18) { // Swiping up (scrolling down)
-        if (currentStageIdx === 0) {
-          if (e.cancelable) e.preventDefault();
-          touchGestureConsumed = true;
-          triggerStageTransition(1, stageTargets[1], 0.075);
-          return;
-        }
-        if (currentStageIdx === 1) {
-          if (e.cancelable) e.preventDefault();
-          touchGestureConsumed = true;
-          triggerStageTransition(2, stageTargets[2], 0.075);
-          return;
-        }
-        if (currentStageIdx >= 2) {
-          if (e.cancelable) e.preventDefault();
-          touchGestureConsumed = true;
-          scrollToNextSection();
-          return;
-        }
-      } else if (dy < -18) { // Swiping down (scrolling up)
-        if (currentStageIdx === 2) {
-          if (e.cancelable) e.preventDefault();
-          touchGestureConsumed = true;
-          triggerStageTransition(1, stageTargets[1], 0.075);
-          return;
-        }
-        if (currentStageIdx === 1) {
-          if (e.cancelable) e.preventDefault();
-          touchGestureConsumed = true;
-          triggerStageTransition(0, stageTargets[0], 0.075);
-          return;
-        }
-        if (currentStageIdx === 0) {
-          if (e.cancelable) e.preventDefault();
-          return;
-        }
-      }
-    }
-  }, { passive: false });
 
   // Manage smart header & announcement bar reveal — keep announcement visible until next section arrives
   window.addEventListener('scroll', () => {
@@ -3310,10 +3061,9 @@ function initOrvelExplodedHeroWatch() {
     st.clock += 0.020;
     st.entranceP *= 0.94;
 
-    // Velocity-adaptive luxury damping (slow scroll = 0.045, fast scroll = 0.105)
     st.p += (st.targetP - st.p) * st.currentDamping;
     const roundedP = Math.round(st.p * 100);
-    if (roundedP !== lastSliderVal) {
+    if (!isSliderDragging && roundedP !== lastSliderVal) {
       sliderEl.value = roundedP;
       lastSliderVal = roundedP;
     }
@@ -4165,337 +3915,6 @@ if (document.readyState === 'loading') {
   } else {
     setupAllReveals();
   }
-})();
-
-(function initOrvelUnifiedHeroScrollController() {
-  const hero = document.getElementById("hero");
-  const widget = document.querySelector("#orvel-right-watch-widget, #hero .orvel-watch-widget, #orvelWatchWidget");
-  if (!hero || !widget) return;
-
-  if (window.ScrollTrigger && typeof window.ScrollTrigger.config === "function") {
-    window.ScrollTrigger.config({ ignoreMobileResize: true });
-  }
-
-  try {
-    const OrigAudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (OrigAudioCtx && OrigAudioCtx.prototype) {
-      OrigAudioCtx.prototype.createOscillator = function () {
-        return {
-          type: "sine",
-          frequency: { value: 0, setValueAtTime() { }, exponentialRampToValueAtTime() { }, linearRampToValueAtTime() { } },
-          connect() { return this; },
-          start() { },
-          stop() { },
-          disconnect() { }
-        };
-      };
-    }
-  } catch (_) { }
-
-  hero.addEventListener(
-    "touchend",
-    (e) => {
-      if (!e.target.closest("button, a, .orvel-hud-btn, .orvel-lume-switch")) {
-        e.stopImmediatePropagation();
-      }
-    },
-    true
-  );
-
-  const HERO_STAGES = [
-    {
-      eyebrow: "01 / 03 — MIX INVENTORIES FLAGSHIP CURATION",
-      line1: "TIME,",
-      line2: "Redefined.",
-      sub: "A bold expression of precision, elegance, and multi-brand luxury horology.",
-      explodeState: "assembled",
-      flipState: "front",
-      hudMode: "assembled",
-      showTags: false
-    },
-    {
-      eyebrow: "02 / 03 — EIGHT HOROLOGICAL LAYERS",
-      line1: "CRAFTED,",
-      line2: "Layer by Layer.",
-      sub: "18K Aurum fluted bezel, double-domed AR sapphire, and cold-forged 316L steel separated in 3D space.",
-      explodeState: "exploded",
-      flipState: "front",
-      hudMode: "exploded",
-      showTags: true
-    },
-    {
-      eyebrow: "03 / 03 — 360° CALIBRE PRECISION",
-      line1: "PRECISION,",
-      line2: "In Motion.",
-      sub: "360° horological exhibition revealing the 25-jewel Calibre MI-21 mechanical heart beating at 28,800 VPH.",
-      explodeState: "exploded",
-      flipState: "flipped",
-      hudMode: "calibre",
-      showTags: false
-    }
-  ];
-
-  let mobStep = 0;
-  let deskStep = 0;
-  let lastVisualStage = 0;
-  let stepLockedUntil = 0;
-  let wheelDeltaAccum = 0;
-  let lastWheelTime = 0;
-  let autoGlideTimer = null;
-
-  function isMobileView() {
-    return window.innerWidth <= 820;
-  }
-
-  function scrollToNextSection(smooth = true) {
-    const target = document.getElementById("watch-category-showcase") ||
-      document.getElementById("bento-collections");
-    if (!target) return;
-
-    const header = document.getElementById("site-header");
-    const offset = header ? header.offsetHeight : 70;
-    const targetY = Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - offset);
-
-    if (window.lenis && typeof window.lenis.start === "function") {
-      window.lenis.start();
-    }
-
-    if (window.lenis && typeof window.lenis.scrollTo === "function") {
-      window.lenis.scrollTo(targetY, {
-        duration: smooth ? 0.85 : 0,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-      });
-    } else {
-      window.scrollTo({ top: targetY, behavior: smooth ? "smooth" : "auto" });
-    }
-  }
-
-  function applyVisualStage(stageIdx, opts = {}) {
-    const { skipWatchAnimSync = false, force = false } = opts;
-    const st = HERO_STAGES[stageIdx] || HERO_STAGES[0];
-    widget.setAttribute("data-explode-state", st.explodeState);
-    widget.setAttribute("data-flip-state", st.flipState);
-    widget.setAttribute("data-stage", String(stageIdx));
-
-    if (st.showTags) {
-      document.documentElement.classList.add("orvel-scrolled-tags-on");
-    } else {
-      document.documentElement.classList.remove("orvel-scrolled-tags-on");
-    }
-
-    hero.querySelectorAll(".orvel-hud-btn").forEach((btn) => {
-      const m = (btn.getAttribute("data-mode") || btn.textContent || "").toLowerCase();
-      const isMatch =
-        (st.hudMode === "assembled" && m.includes("assembled")) ||
-        (st.hudMode === "exploded" && m.includes("explode")) ||
-        (st.hudMode === "calibre" && (m.includes("calibre") || m.includes("360")));
-      btn.classList.toggle("active", isMatch);
-      btn.classList.toggle("is-active", isMatch);
-      btn.setAttribute("aria-pressed", isMatch ? "true" : "false");
-    });
-
-    if (force || stageIdx !== lastVisualStage) {
-      lastVisualStage = stageIdx;
-      hero.classList.add("orvel-stage-switched");
-
-      if (!skipWatchAnimSync && typeof window.__orvelSyncWatchAnimation === "function") {
-        window.__orvelSyncWatchAnimation(stageIdx, stageIdx === 2 ? 1 : (stageIdx === 1 ? 0.50 : 0));
-      }
-
-      const tagEl = hero.querySelector(".hero-tag, .hero-eyebrow");
-      const titleEl = hero.querySelector(".hero-title, h1");
-      const subEl = hero.querySelector(".hero-subtext, .hero-desc");
-
-      if (tagEl) tagEl.textContent = st.eyebrow;
-      if (titleEl) {
-        titleEl.innerHTML = `${st.line1}<br><em style="color:#D6B265;font-style:italic;font-weight:400;">${st.line2}</em>`;
-      }
-      if (subEl) {
-        subEl.textContent = st.sub;
-      }
-    }
-  }
-
-  function setMobileStep(newStep) {
-    mobStep = Math.max(0, Math.min(2, newStep));
-    deskStep = mobStep;
-    applyVisualStage(mobStep);
-  }
-
-  function setDesktopStep(newStep) {
-    deskStep = Math.max(0, Math.min(2, newStep));
-    mobStep = deskStep;
-    applyVisualStage(deskStep);
-  }
-
-  // Single source of truth sync hook called by HUD buttons & #orvelExplodeSlider
-  window.__orvelSyncScrollStep = function (idx) {
-    const clamped = Math.max(0, Math.min(2, Number(idx) || 0));
-    mobStep = clamped;
-    deskStep = clamped;
-    applyVisualStage(clamped, { skipWatchAnimSync: true, force: true });
-  };
-
-  document.addEventListener("click", (e) => {
-    // Anchor navigation back to #hero or logo resets Hero watch cleanly to Stage 0
-    const heroAnchor = e.target.closest('a[href="#hero"], a[href="#"], .site-logo');
-    if (heroAnchor) {
-      wasBelowHero = false;
-      stepLockedUntil = 0;
-      wheelDeltaAccum = 0;
-      setDesktopStep(0);
-    }
-  });
-
-  document.querySelectorAll('.hero-scroll-cue a, a[href="#watch-category-showcase"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      clearTimeout(autoGlideTimer);
-      setDesktopStep(2);
-      scrollToNextSection(true);
-    });
-  });
-
-  let wasBelowHero = false;
-  let lastScrollY = window.scrollY || window.pageYOffset || 0;
-
-  // Keep Hero stage state synced with scroll position so re-entering Hero never deadlocks
-  window.addEventListener("scroll", () => {
-    const sy = window.scrollY || window.pageYOffset || 0;
-    const scrollingUp = sy < lastScrollY;
-    lastScrollY = sy;
-
-    if (sy > 80) {
-      wasBelowHero = true;
-      if (!window._orvelManualHud && (mobStep < 2 || deskStep < 2)) {
-        mobStep = 2;
-        deskStep = 2;
-        applyVisualStage(2);
-      } else if (window._orvelManualHud && Math.abs(sy - (window._orvelManualHudScrollY || 0)) > 60) {
-        window._orvelManualHud = false;
-      }
-      stepLockedUntil = 0;
-      wheelDeltaAccum = 0;
-      if (document.body.style.overflow === "hidden") document.body.style.overflow = "";
-      if (document.documentElement.style.overflow === "hidden") document.documentElement.style.overflow = "";
-      if (window.lenis && typeof window.lenis.start === "function") {
-        window.lenis.start();
-      }
-    } else if (sy <= 2 && wasBelowHero && scrollingUp) {
-      // Returned to top of Hero from below via Lenis / anchor / scrollbar: reset cleanly to Stage 0
-      wasBelowHero = false;
-      wheelDeltaAccum = 0;
-      stepLockedUntil = performance.now() + 200;
-      setDesktopStep(0);
-    }
-  }, { passive: true });
-
-  const MODAL_OPEN_SELECTOR = ".concierge-panel, .cart-drawer, .mobile-nav-drawer, .quickview-modal, .policy-modal-overlay, #product-detail-modal, #compare-drawer, #wishlist-drawer";
-  const HERO_TOP_THRESHOLD = 4;
-
-  window.addEventListener(
-    "wheel",
-    (e) => {
-      if (e.target && e.target.closest(MODAL_OPEN_SELECTOR)) return;
-
-      const sy = window.scrollY || window.pageYOffset || 0;
-      const now = performance.now();
-
-      // Decay accumulated delta only after 500ms of silence so slow wheel ticks are never dropped
-      if (now - lastWheelTime > 500 || (wheelDeltaAccum > 0 && e.deltaY < 0) || (wheelDeltaAccum < 0 && e.deltaY > 0)) {
-        wheelDeltaAccum = 0;
-      }
-      lastWheelTime = now;
-
-      // Only intercept wheel when strictly at top of Hero (sy <= HERO_TOP_THRESHOLD)
-      if (sy > HERO_TOP_THRESHOLD) return;
-
-      const curStep = isMobileView() ? mobStep : deskStep;
-
-      if (e.deltaY > 0 && curStep < 2) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        if (now < stepLockedUntil) return;
-        wheelDeltaAccum += e.deltaY;
-        if (wheelDeltaAccum < 8) return;
-        wheelDeltaAccum = 0;
-        stepLockedUntil = now + 220;
-        setDesktopStep(curStep + 1);
-        return;
-      }
-
-      if (e.deltaY < 0 && curStep > 0) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        if (now < stepLockedUntil) return;
-        wheelDeltaAccum += e.deltaY;
-        if (Math.abs(wheelDeltaAccum) < 8) return;
-        wheelDeltaAccum = 0;
-        stepLockedUntil = now + 220;
-        setDesktopStep(curStep - 1);
-        return;
-      }
-    },
-    { capture: true, passive: false }
-  );
-
-  let touchStartY = 0;
-  let touchStepDoneInGesture = false;
-
-  window.addEventListener(
-    "touchstart",
-    (e) => {
-      if (!e.touches || !e.touches.length) return;
-      touchStartY = e.touches[0].clientY;
-      touchStepDoneInGesture = false;
-    },
-    { capture: true, passive: true }
-  );
-
-  window.addEventListener(
-    "touchend",
-    () => {
-      touchStepDoneInGesture = false;
-    },
-    { capture: true, passive: true }
-  );
-
-  window.addEventListener(
-    "touchmove",
-    (e) => {
-      if (!e.touches || !e.touches.length) return;
-      if (e.target && e.target.closest(MODAL_OPEN_SELECTOR)) return;
-
-      const sy = window.scrollY || window.pageYOffset || 0;
-      if (sy > HERO_TOP_THRESHOLD) return;
-
-      const dy = touchStartY - e.touches[0].clientY;
-      const now = performance.now();
-
-      if (dy > 14 && mobStep < 2) {
-        if (e.cancelable) e.preventDefault();
-        e.stopImmediatePropagation();
-        if (!touchStepDoneInGesture && now >= stepLockedUntil) {
-          touchStepDoneInGesture = true;
-          stepLockedUntil = now + 200;
-          setMobileStep(mobStep + 1);
-        }
-        return;
-      }
-
-      if (dy < -14 && mobStep > 0) {
-        if (e.cancelable) e.preventDefault();
-        e.stopImmediatePropagation();
-        if (!touchStepDoneInGesture && now >= stepLockedUntil) {
-          touchStepDoneInGesture = true;
-          stepLockedUntil = now + 200;
-          setMobileStep(mobStep - 1);
-        }
-        return;
-      }
-    },
-    { capture: true, passive: false }
-  );
 })();
 
 (function fixOrvelSectionPinningAndVisibility() {
