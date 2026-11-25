@@ -2609,9 +2609,9 @@ function initOrvelExplodedHeroWatch() {
 
   const heroStories = [
     {
-      tag: '01 / 03 — ORVÉL ROYAL CHRONO MASTER',
+      tag: '01 / 03 — MIX INVENTORIES FLAGSHIP CURATION',
       titleHtml: '<span class="orvel-title-line-1">TIME,</span><em class="orvel-title-line-2">Redefined.</em>',
-      sub: 'A bold expression of precision, elegance, and contemporary horology.'
+      sub: 'A bold expression of precision, elegance, and multi-brand luxury horology.'
     },
     {
       tag: '02 / 03 — EIGHT HOROLOGICAL LAYERS',
@@ -2619,9 +2619,9 @@ function initOrvelExplodedHeroWatch() {
       sub: '18K Aurum fluted bezel, double-domed AR sapphire, and cold-forged 316L steel separated in 3D space.'
     },
     {
-      tag: '03 / 03 — CALIBRE ORV-21 AUTOMATIC',
+      tag: '03 / 03 — 360° CALIBRE PRECISION',
       titleHtml: '<span class="orvel-title-line-1">PRECISION,</span><em class="orvel-title-line-2">In Motion.</em>',
-      sub: 'Turned 180° to reveal a 25-jewel mechanical heart beating at 28,800 vibrations per hour.'
+      sub: '360° horological exhibition revealing the 25-jewel Calibre MI-21 mechanical heart beating at 28,800 VPH.'
     }
   ];
 
@@ -2641,30 +2641,27 @@ function initOrvelExplodedHeroWatch() {
 
   let activeStoryIdx = 0;
   let storyTimer = null;
-  function syncHeroStoryText(stageIdx, animate = false) {
+  function syncHeroStoryText(stageIdx, animate = false, force = false) {
     if (animate) {
       document.getElementById('hero')?.classList.add('orvel-stage-switched');
     }
-    if (stageIdx === activeStoryIdx || !heroTitleEl || !heroSubEl || !heroTagEl) return;
+    if ((!force && stageIdx === activeStoryIdx) || !heroTitleEl || !heroSubEl || !heroTagEl) return;
     activeStoryIdx = stageIdx;
     const story = heroStories[stageIdx] || heroStories[0];
-    if (storyTimer) clearTimeout(storyTimer);
+    if (storyTimer) {
+      clearTimeout(storyTimer);
+      storyTimer = null;
+    }
 
-    storyTimer = setTimeout(() => {
-      heroTitleEl.classList.add('hero-text-exit');
-      setTimeout(() => {
-        heroTagEl.textContent = story.tag;
-        heroTitleEl.innerHTML = story.titleHtml;
-        heroSubEl.textContent = story.sub;
-
-        heroTitleEl.classList.remove('hero-text-exit');
-        heroTagEl.classList.remove('orvel-hero-tag-reveal');
-        heroSubEl.classList.remove('orvel-hero-sub-reveal');
-        void heroTitleEl.offsetWidth;
-        heroTagEl.classList.add('orvel-hero-tag-reveal');
-        heroSubEl.classList.add('orvel-hero-sub-reveal');
-      }, 160);
-    }, 30);
+    heroTagEl.textContent = story.tag;
+    heroTitleEl.innerHTML = story.titleHtml;
+    heroSubEl.textContent = story.sub;
+    heroTitleEl.classList.remove('hero-text-exit');
+    heroTagEl.classList.remove('orvel-hero-tag-reveal');
+    heroSubEl.classList.remove('orvel-hero-sub-reveal');
+    void heroTitleEl.offsetWidth;
+    heroTagEl.classList.add('orvel-hero-tag-reveal');
+    heroSubEl.classList.add('orvel-hero-sub-reveal');
   }
 
   const applyLeftHeroStory = syncHeroStoryText;
@@ -2947,6 +2944,7 @@ function initOrvelExplodedHeroWatch() {
   phaseBtns.forEach((btn, idx) => {
     btn.addEventListener('click', () => {
       window._orvelManualHud = true;
+      window._orvelManualHudScrollY = window.scrollY || window.pageYOffset || 0;
       syncHeroStoryText(idx, true);
       triggerStageTransition(idx, parseFloat(btn.dataset.orvelPhase), window.innerWidth <= 1030 ? 0.14 : 0.095);
       if (typeof window.__orvelSyncScrollStep === 'function') {
@@ -2963,6 +2961,7 @@ function initOrvelExplodedHeroWatch() {
     if (idx !== currentStageIdx) {
       currentStageIdx = idx;
       window._orvelManualHud = true;
+      window._orvelManualHudScrollY = window.scrollY || window.pageYOffset || 0;
       syncHeroStoryText(idx, true);
       for (let i = 0; i < phaseBtns.length; i++) {
         phaseBtns[i].classList.toggle('is-active', i === idx);
@@ -3071,9 +3070,10 @@ function initOrvelExplodedHeroWatch() {
     }
   }
 
-  // Expose 3D animation phase sync for initOrvelUnifiedFiveScrollHeroAllDevices
+  // Expose 3D animation phase sync for unified scroll controller
   window.__orvelSyncWatchAnimation = function (stageIdx, customTargetP) {
     currentStageIdx = stageIdx;
+    activeStoryIdx = stageIdx;
     const prevTargetP = st.targetP;
     st.targetP = customTargetP !== undefined
       ? customTargetP
@@ -4270,7 +4270,8 @@ if (document.readyState === 'loading') {
     }
   }
 
-  function applyVisualStage(stageIdx) {
+  function applyVisualStage(stageIdx, opts = {}) {
+    const { skipWatchAnimSync = false, force = false } = opts;
     const st = HERO_STAGES[stageIdx] || HERO_STAGES[0];
     widget.setAttribute("data-explode-state", st.explodeState);
     widget.setAttribute("data-flip-state", st.flipState);
@@ -4289,14 +4290,15 @@ if (document.readyState === 'loading') {
         (st.hudMode === "exploded" && m.includes("explode")) ||
         (st.hudMode === "calibre" && (m.includes("calibre") || m.includes("360")));
       btn.classList.toggle("active", isMatch);
+      btn.classList.toggle("is-active", isMatch);
       btn.setAttribute("aria-pressed", isMatch ? "true" : "false");
     });
 
-    if (stageIdx !== lastVisualStage) {
+    if (force || stageIdx !== lastVisualStage) {
       lastVisualStage = stageIdx;
       hero.classList.add("orvel-stage-switched");
 
-      if (typeof window.__orvelSyncWatchAnimation === "function") {
+      if (!skipWatchAnimSync && typeof window.__orvelSyncWatchAnimation === "function") {
         window.__orvelSyncWatchAnimation(stageIdx, stageIdx === 2 ? 1 : (stageIdx === 1 ? 0.50 : 0));
       }
 
@@ -4331,23 +4333,10 @@ if (document.readyState === 'loading') {
     const clamped = Math.max(0, Math.min(2, Number(idx) || 0));
     mobStep = clamped;
     deskStep = clamped;
-    lastVisualStage = clamped;
+    applyVisualStage(clamped, { skipWatchAnimSync: true, force: true });
   };
 
   document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".orvel-hud-btn");
-    if (btn) {
-      const mode = (btn.getAttribute("data-mode") || btn.textContent || "").toLowerCase();
-      if (mode.includes("assembled")) {
-        setDesktopStep(0);
-      } else if (mode.includes("explode")) {
-        setDesktopStep(1);
-      } else if (mode.includes("calibre") || mode.includes("360")) {
-        setDesktopStep(2);
-      }
-      return;
-    }
-
     // Anchor navigation back to #hero or logo resets Hero watch cleanly to Stage 0
     const heroAnchor = e.target.closest('a[href="#hero"], a[href="#"], .site-logo');
     if (heroAnchor) {
@@ -4378,10 +4367,12 @@ if (document.readyState === 'loading') {
 
     if (sy > 80) {
       wasBelowHero = true;
-      if (mobStep < 2 || deskStep < 2) {
+      if (!window._orvelManualHud && (mobStep < 2 || deskStep < 2)) {
         mobStep = 2;
         deskStep = 2;
         applyVisualStage(2);
+      } else if (window._orvelManualHud && Math.abs(sy - (window._orvelManualHudScrollY || 0)) > 60) {
+        window._orvelManualHud = false;
       }
       stepLockedUntil = 0;
       wheelDeltaAccum = 0;
