@@ -931,13 +931,18 @@ class OrvelConcierge {
       }
     }
 
-    // Fallback: match exact product titles mentioned in AI reply if no IDs were attached
+    // Fallback: match exact product titles mentioned in AI reply (longest title first, consuming matches so substrings like "TISSOT PRX 1853" don't falsely match "TISSOT PRX 1853 BLUE")
     if (picked.length === 0 && responseText) {
-      const lowerText = responseText.toLowerCase();
-      for (const p of catalog) {
-        if (lowerText.includes(String(p.name).toLowerCase()) && !seen.has(p.id)) {
+      const normalizeStr = (s) => String(s || '').toLowerCase().replace(/[\u2010-\u2015\u2212]/g, '-');
+      let remainingText = normalizeStr(responseText);
+      const sortedCatalog = [...catalog].sort((a, b) => String(b.name || '').length - String(a.name || '').length);
+      for (const p of sortedCatalog) {
+        const needle = normalizeStr(p.name);
+        if (!needle || seen.has(p.id)) continue;
+        if (remainingText.includes(needle)) {
           seen.add(p.id);
           picked.push(p);
+          remainingText = remainingText.split(needle).join(' ');
           if (picked.length >= 3) break;
         }
       }

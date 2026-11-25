@@ -8,7 +8,7 @@ import { boutiqueConfig } from './config.js?v=20261125insta';
 import { store } from './store.js?v=20261125scrollfix3';
 import { ui } from './ui.js?v=20261125scrollfix3';
 import { motion } from './animations.js?v=20261125scrollfix3';
-import { concierge } from './concierge.js?v=20261125chatcards';
+import { concierge } from './concierge.js?v=20261125chatcards2';
 import {
   processBasicQuery,
   resetBridgeSession,
