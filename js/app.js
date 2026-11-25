@@ -2949,6 +2949,9 @@ function initOrvelExplodedHeroWatch() {
       window._orvelManualHud = true;
       syncHeroStoryText(idx, true);
       triggerStageTransition(idx, parseFloat(btn.dataset.orvelPhase), window.innerWidth <= 1030 ? 0.14 : 0.095);
+      if (typeof window.__orvelSyncScrollStep === 'function') {
+        window.__orvelSyncScrollStep(idx);
+      }
     });
   });
 
@@ -2972,6 +2975,9 @@ function initOrvelExplodedHeroWatch() {
         document.documentElement.classList.add('orvel-hero-exploded', 'orvel-scrolled-tags-on');
       } else if (idx === 0) {
         document.documentElement.classList.remove('orvel-hero-exploded', 'orvel-scrolled-tags-on');
+      }
+      if (typeof window.__orvelSyncScrollStep === 'function') {
+        window.__orvelSyncScrollStep(idx);
       }
     }
   });
@@ -4310,57 +4316,86 @@ if (document.readyState === 'loading') {
 
   function setMobileStep(newStep) {
     mobStep = Math.max(0, Math.min(2, newStep));
+    deskStep = mobStep;
     applyVisualStage(mobStep);
   }
 
   function setDesktopStep(newStep) {
     deskStep = Math.max(0, Math.min(2, newStep));
+    mobStep = deskStep;
     applyVisualStage(deskStep);
   }
 
+  // Single source of truth sync hook called by HUD buttons & #orvelExplodeSlider
+  window.__orvelSyncScrollStep = function (idx) {
+    const clamped = Math.max(0, Math.min(2, Number(idx) || 0));
+    mobStep = clamped;
+    deskStep = clamped;
+    lastVisualStage = clamped;
+  };
+
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(".orvel-hud-btn");
-    if (!btn) return;
-    const mode = (btn.getAttribute("data-mode") || btn.textContent || "").toLowerCase();
-    if (mode.includes("assembled")) {
-      mobStep = 0;
-      deskStep = 0;
-      applyVisualStage(0);
-    } else if (mode.includes("explode")) {
-      mobStep = 1;
-      deskStep = 1;
-      applyVisualStage(1);
-    } else if (mode.includes("calibre") || mode.includes("360")) {
-      setDesktopStep(2);
-      setMobileStep(2);
+    if (btn) {
+      const mode = (btn.getAttribute("data-mode") || btn.textContent || "").toLowerCase();
+      if (mode.includes("assembled")) {
+        setDesktopStep(0);
+      } else if (mode.includes("explode")) {
+        setDesktopStep(1);
+      } else if (mode.includes("calibre") || mode.includes("360")) {
+        setDesktopStep(2);
+      }
+      return;
+    }
+
+    // Anchor navigation back to #hero or logo resets Hero watch cleanly to Stage 0
+    const heroAnchor = e.target.closest('a[href="#hero"], a[href="#"], .site-logo');
+    if (heroAnchor) {
+      wasBelowHero = false;
+      stepLockedUntil = 0;
+      wheelDeltaAccum = 0;
+      setDesktopStep(0);
     }
   });
 
-  document.querySelectorAll(".hero-scroll-cue a, a[href=\"#watch-category-showcase\"]").forEach((link) => {
+  document.querySelectorAll('.hero-scroll-cue a, a[href="#watch-category-showcase"]').forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       clearTimeout(autoGlideTimer);
+      setDesktopStep(2);
       scrollToNextSection(true);
     });
   });
 
-  let wheelGestureActive = false;
-  let wheelGestureReleaseTimer = null;
+  let wasBelowHero = false;
+  let lastScrollY = window.scrollY || window.pageYOffset || 0;
 
   // Keep Hero stage state synced with scroll position so re-entering Hero never deadlocks
   window.addEventListener("scroll", () => {
     const sy = window.scrollY || window.pageYOffset || 0;
+    const scrollingUp = sy < lastScrollY;
+    lastScrollY = sy;
+
     if (sy > 80) {
-      if (mobStep < 2) mobStep = 2;
-      if (deskStep < 2) deskStep = 2;
+      wasBelowHero = true;
+      if (mobStep < 2 || deskStep < 2) {
+        mobStep = 2;
+        deskStep = 2;
+        applyVisualStage(2);
+      }
       stepLockedUntil = 0;
-      wheelGestureActive = false;
       wheelDeltaAccum = 0;
       if (document.body.style.overflow === "hidden") document.body.style.overflow = "";
       if (document.documentElement.style.overflow === "hidden") document.documentElement.style.overflow = "";
       if (window.lenis && typeof window.lenis.start === "function") {
         window.lenis.start();
       }
+    } else if (sy <= 2 && wasBelowHero && scrollingUp) {
+      // Returned to top of Hero from below via Lenis / anchor / scrollbar: reset cleanly to Stage 0
+      wasBelowHero = false;
+      wheelDeltaAccum = 0;
+      stepLockedUntil = performance.now() + 200;
+      setDesktopStep(0);
     }
   }, { passive: true });
 
@@ -4375,72 +4410,38 @@ if (document.readyState === 'loading') {
       const sy = window.scrollY || window.pageYOffset || 0;
       const now = performance.now();
 
-      if (now - lastWheelTime > 120) {
+      // Decay accumulated delta only after 500ms of silence so slow wheel ticks are never dropped
+      if (now - lastWheelTime > 500 || (wheelDeltaAccum > 0 && e.deltaY < 0) || (wheelDeltaAccum < 0 && e.deltaY > 0)) {
         wheelDeltaAccum = 0;
-        wheelGestureActive = false;
       }
       lastWheelTime = now;
-
-      clearTimeout(wheelGestureReleaseTimer);
-      wheelGestureReleaseTimer = setTimeout(() => {
-        wheelGestureActive = false;
-        wheelDeltaAccum = 0;
-      }, 140);
 
       // Only intercept wheel when strictly at top of Hero (sy <= HERO_TOP_THRESHOLD)
       if (sy > HERO_TOP_THRESHOLD) return;
 
-      if (isMobileView()) {
-        if (e.deltaY > 0 && mobStep < 2) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          if (wheelGestureActive || now < stepLockedUntil) return;
-          wheelDeltaAccum += e.deltaY;
-          if (wheelDeltaAccum < 12) return;
-          wheelDeltaAccum = 0;
-          wheelGestureActive = true;
-          stepLockedUntil = now + 180;
-          setMobileStep(mobStep + 1);
-          return;
-        }
-        if (e.deltaY < 0 && mobStep > 0) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          if (wheelGestureActive || now < stepLockedUntil) return;
-          wheelDeltaAccum += Math.abs(e.deltaY);
-          if (wheelDeltaAccum < 14) return;
-          wheelDeltaAccum = 0;
-          wheelGestureActive = true;
-          stepLockedUntil = now + 180;
-          setMobileStep(mobStep - 1);
-          return;
-        }
-        return;
-      }
+      const curStep = isMobileView() ? mobStep : deskStep;
 
-      if (e.deltaY > 0 && deskStep < 2) {
+      if (e.deltaY > 0 && curStep < 2) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        if (wheelGestureActive || now < stepLockedUntil) return;
+        if (now < stepLockedUntil) return;
         wheelDeltaAccum += e.deltaY;
-        if (wheelDeltaAccum < 14) return;
+        if (wheelDeltaAccum < 8) return;
         wheelDeltaAccum = 0;
-        wheelGestureActive = true;
-        stepLockedUntil = now + 200;
-        setDesktopStep(deskStep + 1);
+        stepLockedUntil = now + 220;
+        setDesktopStep(curStep + 1);
         return;
       }
 
-      if (e.deltaY < 0 && deskStep > 0) {
+      if (e.deltaY < 0 && curStep > 0) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        if (wheelGestureActive || now < stepLockedUntil) return;
-        wheelDeltaAccum += Math.abs(e.deltaY);
-        if (wheelDeltaAccum < 16) return;
+        if (now < stepLockedUntil) return;
+        wheelDeltaAccum += e.deltaY;
+        if (Math.abs(wheelDeltaAccum) < 8) return;
         wheelDeltaAccum = 0;
-        wheelGestureActive = true;
-        stepLockedUntil = now + 200;
-        setDesktopStep(deskStep - 1);
+        stepLockedUntil = now + 220;
+        setDesktopStep(curStep - 1);
         return;
       }
     },
@@ -4483,9 +4484,9 @@ if (document.readyState === 'loading') {
       if (dy > 14 && mobStep < 2) {
         if (e.cancelable) e.preventDefault();
         e.stopImmediatePropagation();
-        if (!touchStepDoneInGesture && dy >= 18 && now >= stepLockedUntil) {
+        if (!touchStepDoneInGesture && now >= stepLockedUntil) {
           touchStepDoneInGesture = true;
-          stepLockedUntil = now + 180;
+          stepLockedUntil = now + 200;
           setMobileStep(mobStep + 1);
         }
         return;
@@ -4494,9 +4495,9 @@ if (document.readyState === 'loading') {
       if (dy < -14 && mobStep > 0) {
         if (e.cancelable) e.preventDefault();
         e.stopImmediatePropagation();
-        if (!touchStepDoneInGesture && Math.abs(dy) >= 18 && now >= stepLockedUntil) {
+        if (!touchStepDoneInGesture && now >= stepLockedUntil) {
           touchStepDoneInGesture = true;
-          stepLockedUntil = now + 180;
+          stepLockedUntil = now + 200;
           setMobileStep(mobStep - 1);
         }
         return;

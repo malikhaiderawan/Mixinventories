@@ -12981,6 +12981,7 @@ body.modal-scroll-locked #orvel-concierge-widget,
 
 .orvel-tilt-stage {
   position: relative;
+  z-index: 10;
   width: 100%;
   height: 470px;
   display: flex;
@@ -14881,7 +14882,8 @@ body:has(#product-detail-modal.is-open) #orvel-concierge-widget .concierge-tease
   justify-content: center !important;
   gap: 8px !important;
   padding: 7px 14px !important;
-  z-index: 95 !important;
+  z-index: 1050 !important;
+  pointer-events: auto !important;
   box-sizing: border-box !important;
 }
 
