@@ -3024,6 +3024,112 @@ function initOrvelExplodedHeroWatch() {
     }
   }, { passive: true });
 
+  // Hero 2-Step Scroll Down: 1st scroll -> Explode 8x (stage 1), 2nd scroll -> 360° Calibre (stage 2)
+  const HERO_SCROLL_IGNORE_SEL = '.concierge-panel.is-open, .cart-drawer, .mobile-nav-drawer, .quickview-modal, .policy-modal-overlay, #product-detail-modal, #compare-drawer, #wishlist-drawer';
+  let heroScrollLockedUntil = 0;
+  let heroWheelBurstActive = false;
+  let heroWheelBurstTimer = null;
+  let heroHoldTailOnStage2 = false;
+
+  function stepHeroScrollStage(nextIdx) {
+    const clamped = Math.max(0, Math.min(2, nextIdx));
+    if (clamped === currentStageIdx) return;
+    const targetPhase = parseFloat(phaseBtns[clamped]?.dataset.orvelPhase ?? stageTargets[clamped]);
+    triggerStageTransition(clamped, targetPhase, window.innerWidth <= 1030 ? 0.14 : 0.095);
+  }
+
+  window.addEventListener('wheel', (e) => {
+    if (e.target && e.target.closest(HERO_SCROLL_IGNORE_SEL)) return;
+    const heroRect = heroSectionEl.getBoundingClientRect();
+    const vh = window.innerHeight || 800;
+    const inHeroZone = heroRect.top <= 40 && heroRect.bottom >= vh * 0.55;
+    if (!inHeroZone) return;
+    if (Math.abs(e.deltaY) < 1) return;
+
+    const scrollingDown = e.deltaY > 0;
+    const scrollingUp = e.deltaY < 0;
+    const sy = window.scrollY || window.pageYOffset || 0;
+    const now = performance.now();
+
+    // Keep extending burst timer across ALL ticks (including <4px trackpad tails)
+    clearTimeout(heroWheelBurstTimer);
+    heroWheelBurstTimer = setTimeout(() => {
+      heroWheelBurstActive = false;
+      heroHoldTailOnStage2 = false;
+    }, 120);
+
+    // Swallow remaining inertia ticks of the gesture that just reached Stage 2
+    if (scrollingDown && currentStageIdx === 2 && (heroHoldTailOnStage2 || now < heroScrollLockedUntil)) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
+
+    const shouldStepDown = scrollingDown && currentStageIdx < 2;
+    const shouldStepUp = scrollingUp && currentStageIdx > 0 && sy <= 240;
+
+    if (!shouldStepDown && !shouldStepUp) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    if (Math.abs(e.deltaY) < 4) return;
+    if (heroWheelBurstActive || now < heroScrollLockedUntil) return;
+
+    heroWheelBurstActive = true;
+    heroScrollLockedUntil = now + 280;
+    const nextIdx = shouldStepDown ? currentStageIdx + 1 : currentStageIdx - 1;
+    heroHoldTailOnStage2 = shouldStepDown && nextIdx === 2;
+    stepHeroScrollStage(nextIdx);
+  }, { capture: true, passive: false });
+
+  let heroTouchStartY = 0;
+  let heroTouchStepDone = false;
+
+  window.addEventListener('touchstart', (e) => {
+    if (!e.touches || !e.touches[0]) return;
+    heroTouchStartY = e.touches[0].clientY;
+    heroTouchStepDone = false;
+  }, { capture: true, passive: true });
+
+  window.addEventListener('touchend', () => {
+    heroTouchStepDone = false;
+  }, { capture: true, passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!e.touches || !e.touches[0]) return;
+    if (e.target && e.target.closest(HERO_SCROLL_IGNORE_SEL)) return;
+    const heroRect = heroSectionEl.getBoundingClientRect();
+    const vh = window.innerHeight || 800;
+    const inHeroZone = heroRect.top <= 40 && heroRect.bottom >= vh * 0.55;
+    if (!inHeroZone) return;
+
+    const dy = heroTouchStartY - e.touches[0].clientY;
+    const sy = window.scrollY || window.pageYOffset || 0;
+    const now = performance.now();
+
+    if (dy > 18 && currentStageIdx < 2) {
+      if (e.cancelable) e.preventDefault();
+      e.stopImmediatePropagation();
+      if (!heroTouchStepDone && now >= heroScrollLockedUntil) {
+        heroTouchStepDone = true;
+        heroScrollLockedUntil = now + 350;
+        stepHeroScrollStage(currentStageIdx + 1);
+      }
+      return;
+    }
+
+    if (dy < -18 && currentStageIdx > 0 && sy <= 240) {
+      if (e.cancelable) e.preventDefault();
+      e.stopImmediatePropagation();
+      if (!heroTouchStepDone && now >= heroScrollLockedUntil) {
+        heroTouchStepDone = true;
+        heroScrollLockedUntil = now + 350;
+        stepHeroScrollStage(currentStageIdx - 1);
+      }
+    }
+  }, { capture: true, passive: false });
+
   // Manage smart header & announcement bar reveal — keep announcement visible until next section arrives
   window.addEventListener('scroll', () => {
     const siteHdr = document.getElementById('site-header');
