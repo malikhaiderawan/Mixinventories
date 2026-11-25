@@ -3172,6 +3172,8 @@
 
 /* Comprehensive Filter & Sorting Bar — Deep Obsidian Black Glass */
 .catalog-filter-bar {
+  position: relative;
+  z-index: 40;
   background: rgba(8, 9, 11, 0.9);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -17213,6 +17215,10 @@ body:has(#preloader:not(.is-hidden)) #concierge-launcher {
   transition: border-color 0.22s ease, background 0.22s ease;
 }
 
+.custom-select-wrap.is-open {
+  z-index: 60;
+}
+
 .custom-select-wrap.is-open .custom-select-trigger,
 .custom-select-trigger:hover {
   border-color: rgba(198, 164, 107, 0.65);
@@ -17574,6 +17580,10 @@ body:has(#preloader:not(.is-hidden)) #concierge-launcher {
   cursor: pointer;
   text-align: left;
   transition: border-color 0.22s ease, background 0.22s ease;
+}
+
+.custom-select-wrap.is-open {
+  z-index: 60;
 }
 
 .custom-select-wrap.is-open .custom-select-trigger,
