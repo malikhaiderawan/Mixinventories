@@ -1,0 +1,1411 @@
+/* ==========================================================================
+   03.6 SCROLL-DRIVEN 3D WATCH CATEGORY SHOWCASE (AUTOMATIC · QUARTZ · DIGITAL)
+   Full Luxury Obsidian Black Theme & Cylindrical Watch Bolster Cushion
+   ========================================================================== */
+
+.category-showcase-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at 32% 50%, #101216 0%, #08090B 52%, #050507 100%);
+  color: #FFFFFF;
+  overflow: hidden;
+  z-index: 10;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(198, 164, 107, 0.14);
+  border-bottom: 1px solid rgba(198, 164, 107, 0.14);
+}
+
+/* Concentric Radial Guilloché Engraving Lines (Champagne Gold on Black) */
+.showcase-bg-circles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 3vw;
+  opacity: 0.45;
+}
+
+.guilloche-svg {
+  width: clamp(720px, 72vw, 1300px);
+  height: clamp(720px, 72vw, 1300px);
+  fill: none;
+  stroke: rgba(198, 164, 107, 0.16);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+/* Backdrop Overlay for Zoom & Inspection */
+.showcase-inspect-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 6, 8, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.5s ease;
+}
+
+.showcase-inspect-backdrop.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Master Layout Container — Consistent Left Cushion & Right Cards across all 3 Categories */
+.category-showcase-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5rem 4vw 5rem 4.5vw;
+  box-sizing: border-box;
+  gap: clamp(3.75rem, 6.8vw, 7.5rem);
+}
+
+/* ==========================================================================
+   LEFT COLUMN: CYLINDRICAL WATCH BOLSTER CUSHION STAGE (~46-48% width)
+   ========================================================================== */
+.showcase-cushion-column {
+  flex: 0 0 clamp(380px, 44vw, 600px);
+  max-width: 620px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.cushion-stage-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stage Canvas for the Watch-on-Bolster Renders */
+.watch-cushion-cylinder {
+  position: relative;
+  width: clamp(360px, 40vw, 540px);
+  height: clamp(360px, 46vh, 490px);
+  border-radius: 32px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+.cushion-surface-highlight {
+  position: absolute;
+  inset: 10% 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198, 164, 107, 0.11) 0%, rgba(198, 164, 107, 0.03) 45%, transparent 72%);
+  pointer-events: none;
+}
+
+.cushion-surface-shadow {
+  position: absolute;
+  bottom: 2%;
+  width: 78%;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.9) 0%, transparent 72%);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+/* Watch Viewport Over Cushion Stage */
+.cushion-watch-viewport {
+  position: absolute;
+  inset: -4% -4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-in;
+  outline: none;
+}
+
+.cushion-slides-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cushion-watch-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(70px) scale(0.92);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.6s ease;
+  pointer-events: none;
+}
+
+.cushion-watch-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  z-index: 5;
+}
+
+.cushion-watch-slide.slide-prev {
+  transform: translateX(-70px) scale(0.92);
+}
+
+.cushion-watch-carrier {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Photorealistic Transparent Watch-on-Bolster Render */
+.cushion-watch-img {
+  width: 100%;
+  height: 100%;
+  max-width: 540px;
+  max-height: 540px;
+  object-fit: contain;
+  filter: drop-shadow(0 32px 46px rgba(0, 0, 0, 0.92)) contrast(1.03);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.65s ease;
+}
+
+.cushion-watch-viewport:hover .cushion-watch-slide.is-active .cushion-watch-img {
+  transform: scale(1.035);
+}
+
+/* Ghosted / Faded Side Previews (Peeking from Far Left & Far Right) */
+.cushion-ghost-preview {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0.76);
+  opacity: 0.26;
+  filter: grayscale(40%) blur(1px) brightness(0.75);
+  pointer-events: none;
+  transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  width: clamp(220px, 22vw, 320px);
+  height: clamp(220px, 22vw, 320px);
+  z-index: 2;
+}
+
+.cushion-ghost-preview.ghost-left {
+  left: -26%;
+}
+
+.cushion-ghost-preview.ghost-right {
+  right: -26%;
+}
+
+.ghost-watch-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Bottom Row: Category Badge Pill & Interaction Prompt */
+.cushion-badge-row {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.8rem;
+  padding: 0 0.5rem;
+  z-index: 10;
+}
+
+.cushion-category-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.05rem;
+  background: rgba(18, 20, 24, 0.92);
+  border: 1px solid rgba(198, 164, 107, 0.38);
+  border-radius: 4px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.cushion-pill-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C6A46B;
+}
+
+.cushion-interaction-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8F8A82;
+  user-select: none;
+}
+
+.cushion-interaction-cue svg {
+  color: #C6A46B;
+}
+
+/* ==========================================================================
+   INTERACTIVE ZOOM & CALLOUT INSPECTION (CLICK WATCH TO ZOOM)
+   ========================================================================== */
+
+/* Theme Variables for the 3 Categories */
+.category-showcase-section {
+  --inspect-accent: #C6A46B;
+  --inspect-accent-rgb: 198, 164, 107;
+  --inspect-badge-bg: rgba(198, 164, 107, 0.14);
+}
+
+.category-showcase-section.inspect-theme-automatic {
+  --inspect-accent: #D4AF37;
+  --inspect-accent-rgb: 212, 175, 55;
+  --inspect-badge-bg: rgba(212, 175, 55, 0.16);
+}
+
+.category-showcase-section.inspect-theme-semiautomatic {
+  --inspect-accent: #4EBA7C;
+  --inspect-accent-rgb: 78, 186, 124;
+  --inspect-badge-bg: rgba(78, 186, 124, 0.16);
+}
+
+.category-showcase-section.inspect-theme-quartz {
+  --inspect-accent: #64C5EB;
+  --inspect-accent-rgb: 100, 197, 235;
+  --inspect-badge-bg: rgba(100, 197, 235, 0.15);
+}
+
+.category-showcase-section.is-inspecting .showcase-cushion-column {
+  z-index: 55;
+  transform: translateX(clamp(0px, 22vw, 310px));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-cushion-column {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-showcase-section.is-inspecting .cushion-watch-viewport {
+  cursor: zoom-out;
+}
+
+.category-showcase-section.is-inspecting .cushion-watch-slide.is-active .cushion-watch-carrier {
+  transform: scale(1.36);
+}
+
+.category-showcase-section.is-inspecting .cushion-ghost-preview,
+.category-showcase-section.is-inspecting .cushion-badge-row,
+.category-showcase-section.is-inspecting .showcase-editorial-column {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease;
+}
+
+/* Callouts Overlay Container */
+.showcase-callouts-overlay {
+  position: absolute;
+  inset: -14% -42%;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease 0.15s, visibility 0.45s ease;
+  z-index: 65;
+}
+
+.category-showcase-section.is-inspecting .showcase-callouts-overlay {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Telemetry Header Banner */
+.inspection-telemetry-header {
+  position: absolute;
+  top: 1.5%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.42rem 1.15rem;
+  background: rgba(10, 12, 16, 0.92);
+  border: 1px solid rgba(var(--inspect-accent-rgb), 0.4);
+  border-radius: 9999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--inspect-accent);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  pointer-events: none;
+  z-index: 70;
+  white-space: nowrap;
+}
+
+.category-showcase-section.is-inspecting .inspection-telemetry-header {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.telemetry-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--inspect-accent);
+  box-shadow: 0 0 10px var(--inspect-accent);
+  animation: telemetryBlink 1.8s infinite ease-in-out;
+}
+
+@keyframes telemetryBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* Horological Microscope Reticle Ring */
+.inspection-reticle-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(260px, 32vw, 360px);
+  height: clamp(260px, 32vw, 360px);
+  transform: translate(-50%, -50%) scale(0.85);
+  border-radius: 50%;
+  border: 1px dashed rgba(var(--inspect-accent-rgb), 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  z-index: 58;
+}
+
+.category-showcase-section.is-inspecting .inspection-reticle-ring {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.reticle-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--inspect-accent);
+  opacity: 0.55;
+}
+.reticle-corner.top-left { top: -8px; left: -8px; border-right: none; border-bottom: none; }
+.reticle-corner.top-right { top: -8px; right: -8px; border-left: none; border-bottom: none; }
+.reticle-corner.bottom-left { bottom: -8px; left: -8px; border-right: none; border-top: none; }
+.reticle-corner.bottom-right { bottom: -8px; right: -8px; border-left: none; border-top: none; }
+
+/* Exit Inspection Button */
+.btn-exit-inspect {
+  position: absolute;
+  top: 1.5%;
+  right: 6%;
+  padding: 0.52rem 1.3rem;
+  background: rgba(18, 20, 24, 0.94);
+  border: 1px solid rgba(var(--inspect-accent-rgb), 0.6);
+  color: var(--inspect-accent);
+  border-radius: 30px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+  z-index: 72;
+}
+
+.btn-exit-inspect:hover {
+  background: var(--inspect-accent);
+  color: #08090B;
+  border-color: var(--inspect-accent);
+  transform: scale(1.05);
+}
+
+/* Callout Line & Card Items */
+.showcase-callouts-list {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.callout-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  pointer-events: auto;
+  opacity: 0;
+  transition: transform 0.35s ease;
+}
+
+.callout-side-left {
+  flex-direction: row;
+}
+
+.callout-side-right {
+  flex-direction: row;
+}
+
+/* Entrance Animations */
+.category-showcase-section.is-inspecting .callout-side-left {
+  animation: calloutSlideInLeft 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--stagger-idx, 0) * 0.12s + 0.1s);
+}
+
+.category-showcase-section.is-inspecting .callout-side-right {
+  animation: calloutSlideInRight 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--stagger-idx, 0) * 0.12s + 0.1s);
+}
+
+@keyframes calloutSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-32px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes calloutSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(32px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* ── UNIQUE POSITIONS FOR CATEGORY 1: AUTOMATIC ── */
+.callout-auto-1 {
+  top: 13%;
+  left: -5%;
+}
+.callout-auto-2 {
+  top: 38%;
+  right: -5%;
+}
+.callout-auto-3 {
+  bottom: 12%;
+  left: -3%;
+}
+
+/* ── UNIQUE POSITIONS FOR CATEGORY 2: SEMI-AUTOMATIC (COMPLETELY DIFFERENT) ── */
+.callout-semi-1 {
+  top: 14%;
+  right: -5%;
+}
+.callout-semi-2 {
+  top: 44%;
+  left: -5%;
+}
+.callout-semi-3 {
+  bottom: 10%;
+  right: -3%;
+}
+
+/* ── UNIQUE POSITIONS FOR CATEGORY 3: QUARTZ (COMPLETELY DIFFERENT) ── */
+.callout-quartz-1 {
+  top: 9%;
+  left: -3%;
+}
+.callout-quartz-2 {
+  top: 30%;
+  right: -5%;
+}
+.callout-quartz-3 {
+  bottom: 14%;
+  left: -5%;
+}
+
+/* Dot & Radar Wave */
+.callout-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+.callout-dot-core {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--inspect-accent);
+  box-shadow: 0 0 14px var(--inspect-accent);
+}
+
+.callout-dot-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--inspect-accent);
+  opacity: 0;
+  animation: dotRadar 2.2s infinite ease-out;
+}
+
+@keyframes dotRadar {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Connector Line */
+.callout-line {
+  width: clamp(38px, 4.8vw, 72px);
+  height: 1px;
+  background: linear-gradient(to right, rgba(var(--inspect-accent-rgb), 0.9), rgba(var(--inspect-accent-rgb), 0.2));
+  flex-shrink: 0;
+}
+
+.callout-side-left .callout-line {
+  background: linear-gradient(to left, rgba(var(--inspect-accent-rgb), 0.9), rgba(var(--inspect-accent-rgb), 0.2));
+}
+
+/* Glass Callout Card */
+.callout-card {
+  background: rgba(12, 14, 18, 0.94);
+  border: 1px solid rgba(var(--inspect-accent-rgb), 0.4);
+  border-radius: 8px;
+  padding: 0.8rem 1.05rem;
+  backdrop-filter: blur(16px);
+  max-width: 250px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.callout-card:hover {
+  border-color: rgba(var(--inspect-accent-rgb), 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), 0 0 15px rgba(var(--inspect-accent-rgb), 0.2);
+}
+
+.callout-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.callout-tag {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--inspect-accent);
+  text-transform: uppercase;
+}
+
+.callout-badge-pill {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  background: var(--inspect-badge-bg);
+  border: 1px solid rgba(var(--inspect-accent-rgb), 0.32);
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--inspect-accent);
+  white-space: nowrap;
+}
+
+.callout-title {
+  display: block;
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 0.96rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin: 0 0 0.3rem 0;
+}
+
+.callout-desc {
+  display: block;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.7rem;
+  color: #B2ACA2;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: EDITORIAL HEADER & OBSIDIAN WATCH CARDS (~52-54% width)
+   ========================================================================== */
+.showcase-editorial-column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 0.4s ease;
+}
+
+/* Editorial Header */
+.showcase-editorial-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.1rem;
+  gap: 1.5rem;
+}
+
+.showcase-eyebrow {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #C6A46B;
+  margin-bottom: 0.65rem;
+}
+
+.showcase-title {
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: clamp(2.4rem, 3.8vw, 3.7rem);
+  line-height: 1.06;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.title-serif-main {
+  display: block;
+  color: #FFFFFF;
+}
+
+.title-serif-sub {
+  font-style: italic;
+  font-weight: 400;
+  color: #C6A46B;
+}
+
+/* Navigation Controls (Arrows & Category Tabs) */
+.showcase-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.showcase-arrow-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  border: 1px solid rgba(198, 164, 107, 0.3);
+  background: #111317;
+  color: #C6A46B;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.showcase-arrow-btn:hover {
+  background: #C6A46B;
+  color: #08090B;
+  border-color: #C6A46B;
+  box-shadow: 0 0 18px rgba(198, 164, 107, 0.28);
+}
+
+.showcase-category-tabs {
+  display: inline-flex;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(198, 164, 107, 0.16);
+  padding: 0.25rem;
+  border-radius: 6px;
+  margin-left: 0.45rem;
+}
+
+.showcase-tab {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.42rem 0.78rem;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #8E8980;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.showcase-tab:hover {
+  color: #E5DFD4;
+}
+
+.showcase-tab.is-active {
+  background: rgba(198, 164, 107, 0.15);
+  border-color: rgba(198, 164, 107, 0.45);
+  color: #C6A46B;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Cards Carousel Viewport & Track */
+.showcase-cards-viewport {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(198, 164, 107, 0.35) transparent;
+  padding-bottom: 1.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.showcase-cards-viewport::-webkit-scrollbar {
+  height: 5px;
+}
+
+.showcase-cards-viewport::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+.showcase-cards-viewport::-webkit-scrollbar-thumb {
+  background: rgba(198, 164, 107, 0.38);
+  border-radius: 4px;
+}
+
+.showcase-cards-track {
+  display: flex;
+  gap: clamp(1.35rem, 1.9vw, 1.9rem);
+  width: max-content;
+  padding: 0.75rem 0.75rem 0.75rem 0.15rem;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* Individual Luxury Watch Card — Frosted Glassmorphism (bg-white/5 backdrop-blur-md border-white/10 p-6) */
+.showcase-card {
+  cursor: pointer;
+  flex: 0 0 clamp(228px, 16.5vw, 268px);
+  width: clamp(228px, 16.5vw, 268px);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease,
+              background-color 0.35s ease,
+              box-shadow 0.4s ease;
+  box-sizing: border-box;
+}
+
+.showcase-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.075);
+  border-color: rgba(198, 164, 107, 0.45);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.65), 0 0 26px rgba(198, 164, 107, 0.12);
+}
+
+.showcase-card-media {
+  position: relative;
+  width: 100%;
+  height: 215px;
+  padding: 0.85rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.35rem;
+  overflow: visible;
+  background: radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.55) 78%);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.showcase-wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(12, 14, 18, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #E5DFD4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.22s ease;
+  padding: 0;
+}
+
+.showcase-wishlist-btn:hover {
+  border-color: rgba(212, 175, 55, 0.65);
+  color: #E2C572;
+  transform: scale(1.06);
+}
+
+.showcase-wishlist-btn.is-active {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: #D4AF37;
+  color: #E2C572;
+}
+
+/* Anti-gravity GSAP-animated watch render (zero conflicting CSS transform transition) */
+.showcase-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: lighten;
+  border-radius: 8px;
+  will-change: transform;
+  transform-origin: center center;
+  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.72));
+}
+
+.showcase-card-info {
+  margin-bottom: 1.4rem;
+}
+
+.showcase-card-tag {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C6A46B;
+  margin-bottom: 0.5rem;
+}
+
+.showcase-card-title {
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 1.16rem;
+  line-height: 1.3;
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0 0 0.6rem;
+}
+
+.showcase-card-price {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #E2DCD2;
+}
+
+/* Minimal Default CTA + Luxury Champagne Gold Hover */
+.showcase-add-btn {
+  width: 100%;
+  padding: 0.78rem 0.65rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.35s ease,
+              transform 0.2s ease;
+}
+
+.showcase-add-btn:hover {
+  background: rgba(198, 164, 107, 0.16);
+  color: #F6E7C8;
+  border-color: rgba(198, 164, 107, 0.65);
+  box-shadow: 0 0 18px rgba(198, 164, 107, 0.22);
+}
+
+.showcase-add-btn:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT (< 992px)
+   ========================================================================== */
+@media (max-width: 991px) {
+  .category-showcase-container {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 3.5rem 1.25rem;
+    gap: 2.5rem;
+  }
+
+  .showcase-cushion-column,
+  .category-showcase-section.is-inspecting .showcase-cushion-column {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+    transform: none;
+  }
+
+  .watch-cushion-cylinder {
+    width: 86vw;
+    max-width: 390px;
+    height: 330px;
+  }
+
+  .cushion-ghost-preview {
+    display: none;
+  }
+
+  .category-showcase-section.is-inspecting .showcase-callouts-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 9, 12, 0.96);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 1.25rem 1rem 5.5rem;
+    z-index: 99999;
+    backdrop-filter: blur(16px);
+    overflow-y: auto;
+  }
+
+  .category-showcase-section.is-inspecting .btn-exit-inspect {
+    position: sticky;
+    top: 0;
+    right: auto;
+    align-self: flex-end;
+    margin-bottom: 0.85rem;
+    z-index: 10;
+  }
+
+  .category-showcase-section.is-inspecting .inspection-telemetry-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    align-self: center;
+    margin-bottom: 1rem;
+    white-space: normal;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .category-showcase-section.is-inspecting .showcase-callouts-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-height: none;
+    overflow: visible;
+    pointer-events: auto;
+    padding-bottom: 1rem;
+  }
+
+  .category-showcase-section.is-inspecting .callout-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .category-showcase-section.is-inspecting .callout-item {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    display: flex !important;
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+    width: 100%;
+  }
+
+  .category-showcase-section.is-inspecting .callout-line,
+  .category-showcase-section.is-inspecting .callout-dot,
+  .category-showcase-section.is-inspecting .inspection-reticle-ring {
+    display: none !important;
+  }
+
+  .category-showcase-section.is-inspecting .callout-card {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .showcase-editorial-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .showcase-card {
+    flex: 0 0 215px;
+    width: 215px;
+  }
+}
+
+/* Desktop defaults for mobile-only helper text & dots */
+.cue-text-mobile {
+  display: none;
+}
+
+.mobile-showcase-dots {
+  display: none;
+}
+
+/* ==========================================================================
+   MOBILE COLLECTION SHOWCASE REDESIGN (max-width: 767px)
+   ========================================================================== */
+@media (max-width: 767px) {
+  .category-showcase-section {
+    overflow-x: hidden;
+    padding-bottom: 4.5rem;
+  }
+
+  .category-showcase-container {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 3rem 0 2rem;
+    gap: 1.5rem;
+    overflow-x: hidden;
+  }
+
+  /* Flatten column wrappers on mobile so Header, Watch Stage, and Cards stack cleanly top-to-bottom */
+  .showcase-editorial-column,
+  .showcase-cushion-column {
+    display: contents;
+  }
+
+  /* 1. Header & Segmented Pill Category Tabs (Top) */
+  .showcase-editorial-header {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.25rem;
+    margin-bottom: 0.25rem;
+    gap: 1.1rem;
+  }
+
+  .showcase-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .showcase-eyebrow {
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    margin-bottom: 0.5rem;
+  }
+
+  .showcase-title {
+    font-size: clamp(1.75rem, 8vw, 2.15rem);
+    line-height: 1.08;
+    text-align: center;
+  }
+
+  .showcase-nav-controls {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .showcase-arrow-btn {
+    display: none !important;
+  }
+
+  .showcase-category-tabs {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    background: rgba(16, 18, 22, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    padding: 0.24rem;
+    margin-left: 0;
+    width: fit-content;
+    max-width: calc(100vw - 24px);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .showcase-tab {
+    font-size: clamp(0.5rem, 2.4vw, 0.58rem);
+    letter-spacing: clamp(0.04em, 0.2vw, 0.1em);
+    padding: 0.42rem clamp(0.52rem, 2.2vw, 0.8rem);
+    border-radius: 9999px;
+    white-space: nowrap;
+    flex-shrink: 1;
+  }
+
+  .showcase-tab.is-active {
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    background: rgba(212, 175, 55, 0.12);
+    color: #E2C572;
+  }
+
+  /* 2. Featured Watch Stage + Meta + Dots (Middle) */
+  .cushion-stage-wrap {
+    order: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+  }
+
+  .watch-cushion-cylinder {
+    width: 76vw;
+    max-width: 310px;
+    height: 240px;
+  }
+
+  .cushion-ghost-preview {
+    display: block !important;
+    width: 135px;
+    height: 135px;
+    opacity: 0.28;
+    filter: grayscale(35%) blur(0.5px) brightness(0.75);
+  }
+
+  .cushion-ghost-preview.ghost-left {
+    left: -46px;
+  }
+
+  .cushion-ghost-preview.ghost-right {
+    right: -46px;
+  }
+
+  .cushion-badge-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 4.25rem !important;
+    padding: 0 1rem;
+  }
+
+  .cushion-category-pill {
+    padding: 0.38rem 0.85rem;
+  }
+
+  .cushion-pill-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+
+  .cue-text-desktop {
+    display: none;
+  }
+
+  .cue-text-mobile {
+    display: inline;
+  }
+
+  .cushion-interaction-cue {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+  }
+
+  .cushion-interaction-cue svg {
+    display: none;
+  }
+
+  .mobile-showcase-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+  }
+
+  .mobile-showcase-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.24);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .mobile-showcase-dot.is-active {
+    background: #D4AF37;
+    transform: scale(1.25);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.45);
+  }
+
+  /* 3. Horizontal Swipeable Product Cards Strip (Bottom) */
+  .showcase-cards-viewport {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
+
+  .showcase-cards-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcase-cards-track {
+    display: flex;
+    gap: 16px;
+    padding: 0.5rem 20px;
+    width: max-content;
+  }
+
+  .showcase-card {
+    flex: 0 0 75vw;
+    min-width: 255px;
+    max-width: 280px;
+    width: 75vw;
+    scroll-snap-align: start;
+    padding: 1.25rem;
+  }
+
+  .showcase-card-media {
+    height: 190px;
+    margin-bottom: 1.1rem;
+  }
+
+  .showcase-wishlist-btn {
+    width: 26px;
+    height: 26px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .showcase-wishlist-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .showcase-add-btn {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* ==========================================================================
+   08B. MIX INVENTORIES AUTHENTICITY & CLIENT PROMISE STRIP
+   ========================================================================== */
+.trust-pillars-section {
+  position: relative;
+  width: 100%;
+  padding: 4.5rem 0;
+  background: linear-gradient(180deg, #090A0D 0%, #0C0D10 100%);
+  border-top: 1px solid rgba(198, 164, 107, 0.14);
+  border-bottom: 1px solid rgba(198, 164, 107, 0.14);
+}
+
+.trust-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.trust-pillar-card {
+  padding: 1.6rem 1.45rem;
+  background: linear-gradient(180deg, #121419 0%, #0D0F13 100%);
+  border: 1px solid rgba(198, 164, 107, 0.16);
+  border-radius: 6px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.trust-pillar-card:hover {
+  border-color: rgba(198, 164, 107, 0.5);
+  transform: translateY(-4px);
+}
+
+.trust-pillar-kicker {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  color: #C6A46B;
+  margin-bottom: 0.65rem;
+}
+
+.trust-pillar-title {
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #FFFFFF;
+  margin: 0 0 0.55rem;
+}
+
+.trust-pillar-desc {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #A49F96;
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .trust-pillars-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .trust-pillars-section {
+    padding: 3rem 0;
+  }
+  .trust-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "mix-inventories",
+  "version": "1.0.0",
+  "description": "Mix Inventories — Curated Luxury Timepieces",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "python3 scripts/dev_server.py"
+  },
+  "keywords": [
+    "mix-inventories",
+    "luxury-watches",
+    "patek-philippe",
+    "rolex",
+    "tissot",
+    "audemars-piguet",
+    "omega",
+    "tag-heuer"
+  ],
+  "author": "Mix Inventories"
+}

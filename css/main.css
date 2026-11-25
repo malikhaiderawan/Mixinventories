@@ -1,0 +1,650 @@
+/* ==========================================================================
+   ORVÉL — Fine Timepieces
+   Luxury Watch Design System, Design Tokens, Typography & Layout Foundations
+   Crafted & Engineered for MalikAxiom Technology
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS & CSS VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand Color System */
+  --color-obsidian: #090909;         /* Pure obsidian black */
+  --color-graphite: #17191B;         /* Structural charcoal */
+  --color-surface: #1E2124;          /* Elevated card surface */
+  --color-surface-hover: #272B2F;    /* Card hover elevation */
+  --color-champagne: #C6A46B;        /* Restrained champagne gold */
+  --color-champagne-light: #E5D4B8;  /* Pale gilt highlight */
+  --color-champagne-glow: rgba(198, 164, 107, 0.18);
+  --color-ivory: #F0EBE2;            /* Contrasting warm editorial light */
+  --color-ivory-surface: #E8E2D7;    /* Subtle ivory card surface */
+  --color-steel: #858585;            /* Mid metallic grey */
+  --color-steel-light: #B4B0A9;      /* Light steel */
+  --color-white: #FFFFFF;
+
+  /* Contextual Theming Defaults */
+  --color-bg: var(--color-obsidian);
+  --color-text: var(--color-white);
+  --color-text-muted: var(--color-steel-light);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-gold: rgba(198, 164, 107, 0.35);
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Italiana', 'Cormorant Garamond', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Geist Mono', 'SFMono-Regular', Menlo, monospace;
+
+  /* Typography Scales */
+  --text-2xs: 0.68rem;   /* 11px */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 2rem;       /* 32px */
+  --text-4xl: 2.75rem;    /* 44px */
+  --text-5xl: 3.75rem;    /* 60px */
+  --text-hero: clamp(2.8rem, 7.5vw, 6.8rem);
+
+  /* Spacing */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+
+  /* Layout Containers */
+  --container-max: 1760px;
+  --container-pad: clamp(1.25rem, 3.5vw, 3.5rem);
+  --header-height: 84px;
+  --announcement-height: 38px;
+}
+
+@media (min-width: 641px) and (max-width: 1080px) {
+  :root {
+    --header-height: 74px;
+    --announcement-height: 36px;
+    --container-pad: 1.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-height: 64px;
+    --announcement-height: 34px;
+    --container-pad: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 58px;
+    --announcement-height: 32px;
+    --container-pad: 0.75rem;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --header-height: 60px;
+    --announcement-height: 30px;
+    --container-pad: 0.85rem;
+  }
+}
+
+:root {
+
+  /* Elevations */
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 8px 32px rgba(198, 164, 107, 0.2);
+  --shadow-drawer: -15px 0 60px rgba(0, 0, 0, 0.8);
+
+  /* Transitions */
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-fast: 0.25s var(--ease-smooth);
+  --transition-normal: 0.45s var(--ease-luxury);
+  --transition-slow: 0.85s var(--ease-luxury);
+
+  /* Radius */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-full: 9999px;
+
+  /* Z-Index Hierarchy */
+  --z-base: 1;
+  --z-header: 100;
+  --z-search: 150;
+  --z-drawer: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-preloader: 500;
+  --z-cursor: 9999;
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL RESETS & FOUNDATION
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: auto;
+  background-color: var(--color-obsidian);
+  color: var(--color-white);
+  overflow-x: hidden;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  /* Allow natural scrolling fallback so touch/wheel never gets frozen */
+  overflow: visible;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.6;
+  background-color: var(--color-obsidian);
+  color: var(--color-white);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Luxury Watch Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: #2A2E33;
+  border-radius: var(--radius-xs);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-champagne);
+}
+
+/* Text Selection */
+::selection {
+  background-color: var(--color-champagne);
+  color: var(--color-obsidian);
+}
+
+/* --------------------------------------------------------------------------
+   3. TYPOGRAPHY SYSTEM
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6,
+.font-serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.12;
+  color: var(--color-white);
+  letter-spacing: -0.015em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5.8vw, 5rem);
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  line-height: 1.12;
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  line-height: 1.25;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+p {
+  color: #C2BFBA;
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+.text-muted {
+  color: var(--color-steel-light);
+}
+
+.text-champagne {
+  color: var(--color-champagne);
+}
+
+.text-ivory {
+  color: var(--color-ivory);
+}
+
+.text-mono-spec {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-champagne);
+}
+
+/* Eyebrow Label */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--color-champagne);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: var(--space-xs);
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background-color: var(--color-champagne);
+}
+
+.eyebrow-dark {
+  color: var(--color-graphite);
+}
+
+.eyebrow-dark::before {
+  background-color: var(--color-graphite);
+}
+
+/* --------------------------------------------------------------------------
+   4. LAYOUT & CONTAINERS
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
+}
+
+.section {
+  padding-top: clamp(4.5rem, 9vw, 8rem);
+  padding-bottom: clamp(4.5rem, 9vw, 8rem);
+  position: relative;
+}
+
+/* Section Theme Variations */
+.section-obsidian {
+  background-color: var(--color-obsidian);
+  color: var(--color-white);
+}
+
+.section-graphite {
+  background-color: var(--color-graphite);
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-graphite::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  right: -5%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198, 164, 107, 0.08) 0%, rgba(198, 164, 107, 0.02) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-graphite::after {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198, 164, 107, 0.06) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-graphite > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section-ivory {
+  background-color: var(--color-ivory);
+  color: var(--color-obsidian);
+}
+
+.section-ivory h1,
+.section-ivory h2,
+.section-ivory h3,
+.section-ivory h4 {
+  color: var(--color-obsidian);
+}
+
+.section-ivory p {
+  color: #4A4642;
+}
+
+.section-header {
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.section-header.text-center {
+  text-align: center;
+  align-items: center;
+}
+
+.section-header.flex-between {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  margin-top: 0.35rem;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--color-steel-light);
+  max-width: 620px;
+  margin-top: 0.85rem;
+  font-weight: 300;
+}
+
+.section-ivory .section-subtitle {
+  color: #635E57;
+}
+
+/* --------------------------------------------------------------------------
+   5. BUTTONS & MICRO-INTERACTIONS
+   -------------------------------------------------------------------------- */
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  padding: 1.05rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Primary Button (Champagne Accent) */
+.btn-primary {
+  background-color: var(--color-champagne);
+  color: var(--color-obsidian);
+  border: 1px solid var(--color-champagne);
+  box-shadow: 0 4px 20px rgba(198, 164, 107, 0.25);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-white);
+  transform: translateY(101%);
+  transition: transform var(--transition-normal);
+  z-index: 1;
+}
+
+.btn-primary > * {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-primary:hover::before {
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  border-color: var(--color-white);
+  box-shadow: 0 6px 28px rgba(255, 255, 255, 0.3);
+}
+
+/* Outline Light Button */
+.btn-outline-light {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.btn-outline-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-white);
+  transform: translateY(101%);
+  transition: transform var(--transition-normal);
+  z-index: 1;
+}
+
+.btn-outline-light > * {
+  position: relative;
+  z-index: 2;
+  transition: color var(--transition-normal);
+}
+
+.btn-outline-light:hover {
+  color: var(--color-obsidian);
+  border-color: var(--color-white);
+}
+
+.btn-outline-light:hover::before {
+  transform: translateY(0);
+}
+
+/* Outline Dark Button (for Ivory sections) */
+.btn-outline-dark {
+  background-color: transparent;
+  color: var(--color-obsidian);
+  border: 1px solid var(--color-obsidian);
+}
+
+.btn-outline-dark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-obsidian);
+  transform: translateY(101%);
+  transition: transform var(--transition-normal);
+  z-index: 1;
+}
+
+.btn-outline-dark > * {
+  position: relative;
+  z-index: 2;
+  transition: color var(--transition-normal);
+}
+
+.btn-outline-dark:hover {
+  color: var(--color-white);
+}
+
+.btn-outline-dark:hover::before {
+  transform: translateY(0);
+}
+
+/* WhatsApp Accent Button */
+.btn-whatsapp {
+  background-color: #25D366;
+  color: #FFFFFF;
+  border: 1px solid #25D366;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1EBE5D;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+}
+
+/* Link with animated underline */
+.link-editorial {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-champagne);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.link-editorial::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform var(--transition-normal);
+}
+
+.link-editorial:hover::after {
+  transform: scaleX(0);
+}
+
+/* --------------------------------------------------------------------------
+   6. FLOATING AGENCY BADGE & UTILITY
+   -------------------------------------------------------------------------- */
+.demo-agency-badge {
+  position: fixed;
+  bottom: 1.65rem;
+  left: 5.5rem;
+  background: rgba(9, 9, 9, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-champagne-light);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(198, 164, 107, 0.3);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.demo-agency-badge:hover {
+  transform: translateY(-2px);
+  background: rgba(9, 9, 9, 0.98);
+  border-color: var(--color-champagne);
+}
+
+.demo-agency-badge .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-champagne);
+  box-shadow: 0 0 8px var(--color-champagne);
+}
+
+@media (max-width: 480px) {
+  .demo-agency-badge {
+    display: none !important;
+  }
+}

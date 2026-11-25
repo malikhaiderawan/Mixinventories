@@ -1,0 +1,1102 @@
+{
+  "metadata": {
+    "clientId": "mix-inventories",
+    "schemaVersion": "1.0.0",
+    "datasetVersion": "2.0.0",
+    "lastUpdated": "2026-11-25T12:51:36.060Z",
+    "source": "boutiqueConfig.products",
+    "itemCount": {
+      "products": 28,
+      "faqs": 8
+    },
+    "environment": "production"
+  },
+  "businessInfo": {
+    "name": "Mix Inventories",
+    "category": "watches",
+    "description": "Mix Inventories — Curated Multi-Brand Luxury Timepieces in Pakistan featuring Omega, Tissot, Patek Philippe, Richard Mille, Cartier, TAG Heuer, Tubular, and Martyn Line.",
+    "address": "Gulberg III, Lahore, Pakistan",
+    "phone": "+92 328 4037431",
+    "whatsapp": "+92 328 4037431",
+    "email": "concierge@mixinventories.com",
+    "website": "",
+    "hours": {
+      "monday": "11:00 AM – 10:00 PM PKT",
+      "tuesday": "11:00 AM – 10:00 PM PKT",
+      "wednesday": "11:00 AM – 10:00 PM PKT",
+      "thursday": "11:00 AM – 10:00 PM PKT",
+      "friday": "11:00 AM – 10:00 PM PKT",
+      "saturday": "11:00 AM – 10:00 PM PKT",
+      "sunday": "Closed",
+      "note": "Mix Inventories Concierge open Mon – Sat, 11:00 AM – 10:00 PM PKT (Sunday closed)."
+    },
+    "location": "Lahore, Pakistan",
+    "supportedLanguages": [
+      "en",
+      "ur-roman"
+    ],
+    "social": {
+      "instagram": "@mixinventories"
+    },
+    "business_summary": "our curated luxury watches, prices, specifications, delivery, and store policies",
+    "business_summary_roman_ur": "hamari luxury watches, qeematein, specifications, delivery, aur policies",
+    "topic_list": "watch models, prices, specifications, Cash on Delivery, warranty, and returns",
+    "topic_list_roman_ur": "watch models, qeematein, specifications, delivery, warranty, aur return policy"
+  },
+  "products": [
+    {
+      "sku": "csv-prod-01",
+      "name": "TAG HEUER-CARRERA",
+      "brand": "TAG Heuer",
+      "category": "Quartz Watch",
+      "description": "TAG HEUER-CARRERA featuring Quartz Movement | Date Working | Leather Strap | Master Lock | Smooth Machine Movement. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 3500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "42mm"
+      ],
+      "material": "Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "42mm",
+        "case_thickness": "12.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Leather Strap",
+        "strap_width": "22mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-02",
+      "name": "TISSOT-PRX",
+      "brand": "Tissot",
+      "category": "Quartz Watch",
+      "description": "TISSOT-PRX featuring Quartz Movement | Date Working | Highly Grade Chain | Dual Lock | Smooth Machine Movement. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "40mm"
+      ],
+      "material": "Highly Grade Chain / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "40mm",
+        "case_thickness": "10.4mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Chain",
+        "strap_width": "12mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-03",
+      "name": "OMEGA-SEAMASTER CO-AXIAL",
+      "brand": "Omega",
+      "category": "Automatic Watch",
+      "description": "OMEGA-SEAMASTER CO-AXIAL featuring Luxury Black | Smooth Machine Movement | Date Working | Highly Grade Chain | Dual Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 8500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black"
+      ],
+      "sizes": [
+        "41mm"
+      ],
+      "material": "316L Solid Stainless Steel Chain with Dual Lock / Domed Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "41mm",
+        "case_thickness": "13.2mm",
+        "movement": "Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Automatic",
+        "power_reserve": "48-Hour Power Reserve",
+        "strap_material": "316L Solid Stainless Steel Chain with Dual Lock",
+        "strap_width": "20mm",
+        "dial_color": "Horizontal Teak Pattern Black Dial with Date Window",
+        "crystal": "Domed Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-04",
+      "name": "PATEK PHILIPPE-GENEVE",
+      "brand": "Patek Philippe",
+      "category": "Quartz Watch",
+      "description": "PATEK PHILIPPE-GENEVE featuring Down Second Working | Date Working | Genuine Leather Strap | Butterfly Original Lock | Quartz Movement | Smooth Machine Movement. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 9000,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "blue"
+      ],
+      "sizes": [
+        "40mm x 48mm (Tonneau)"
+      ],
+      "material": "Genuine Alligator-Embossed Leather Strap / Curved Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "40mm x 48mm (Tonneau)",
+        "case_thickness": "11.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Genuine Alligator-Embossed Leather Strap",
+        "strap_width": "21mm",
+        "dial_color": "Royal Sunburst Blue Dial with Applied Roman Numerals",
+        "crystal": "Curved Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-05",
+      "name": "RICHARD MILLE",
+      "brand": "Richard Mille",
+      "category": "Quartz Watch",
+      "description": "RICHARD MILLE featuring Fabric Strap | Quartz Movement | Smooth Machine Movement | Moon White Case With Black Dial. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "blue",
+        "white"
+      ],
+      "sizes": [
+        "43mm x 50mm"
+      ],
+      "material": "Technical White Fabric Strap / Curved Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "43mm x 50mm",
+        "case_thickness": "14.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Technical White Fabric Strap",
+        "strap_width": "24mm",
+        "dial_color": "Skeleton Architectural Dial with Blue & Red Accents",
+        "crystal": "Curved Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-06",
+      "name": "TISSOT-QUARTZ",
+      "brand": "Tissot",
+      "category": "Quartz Watch",
+      "description": "TISSOT-QUARTZ featuring Quartz Movement | Date Working | Down Second Working | Highly Grade Chain | Dual Lock | Smooth Machine Movement. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 7500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "42mm"
+      ],
+      "material": "Highly Grade Chain / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "42mm",
+        "case_thickness": "11.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Chain",
+        "strap_width": "22mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-07",
+      "name": "PATEK PHILIPPE NAUTILUS TWO-TONE",
+      "brand": "Patek Philippe",
+      "category": "Quartz Watch",
+      "description": "PATEK PHILIPPE NAUTILUS TWO-TONE featuring Date Working | Highly Grade Chain | Dual Lock | 2 Tone Chain Style | Quibee Dial | Smooth Machine Movement. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4750,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "gold",
+        "two-tone"
+      ],
+      "sizes": [
+        "40mm (Two-Tone Porthole Case)"
+      ],
+      "material": "Two-Tone Stainless Steel & Gold Bracelet / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "40mm (Two-Tone Porthole Case)",
+        "case_thickness": "9.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Two-Tone Stainless Steel & Gold Bracelet",
+        "strap_width": "21mm",
+        "dial_color": "Horizontally Embossed Ribbed Black Dial with Gold Markers",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-08",
+      "name": "TISSOT PRX 1853",
+      "brand": "Tissot",
+      "category": "Automatic Watch",
+      "description": "TISSOT PRX 1853 featuring Automatic Movement | Like Stop Watch Working | Smooth Machine Movement | Date Working | 2 Tone Case With Black | Highly Grade Leather Strap | Master Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 9500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "gold",
+        "rose gold"
+      ],
+      "sizes": [
+        "40mm (Integrated Two-Tone)"
+      ],
+      "material": "Black Leather Strap with Master Lock / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "40mm (Integrated Two-Tone)",
+        "case_thickness": "11.0mm",
+        "movement": "Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Automatic",
+        "power_reserve": "48-Hour Power Reserve",
+        "strap_material": "Black Leather Strap with Master Lock",
+        "strap_width": "22mm",
+        "dial_color": "Black Dial with Rose Gold Chronograph Subdials",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-09",
+      "name": "TISSOT PRX 1853 BLUE",
+      "brand": "Tissot",
+      "category": "Semi-Automatic Watch",
+      "description": "TISSOT PRX 1853 BLUE featuring Semi Auto Movement | Smooth Machine Movement | Date Working | Silver Case With Blue | Highly Grade Chain | Dual Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "silver",
+        "blue"
+      ],
+      "sizes": [
+        "40mm (Integrated Steel Case)"
+      ],
+      "material": "316L Solid Steel Chain with Dual Lock / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "40mm (Integrated Steel Case)",
+        "case_thickness": "11.2mm",
+        "movement": "Semi-Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Semi-Automatic",
+        "power_reserve": "Kinetic Rotor Assist",
+        "strap_material": "316L Solid Steel Chain with Dual Lock",
+        "strap_width": "22mm",
+        "dial_color": "Sunburst Royal Blue Dial with Date Window",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-10",
+      "name": "TISSOT PRX 1853 TWO-TONE GREEN",
+      "brand": "Tissot",
+      "category": "Semi-Automatic Watch",
+      "description": "TISSOT PRX 1853 TWO-TONE GREEN featuring Semi Auto Movement | Smooth Machine Movement | Date Working | 2 Tone Chain With Bottle Green | Highly Grade Chain | Dual Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "gold",
+        "green",
+        "two-tone"
+      ],
+      "sizes": [
+        "40mm (Integrated Two-Tone)"
+      ],
+      "material": "Two-Tone Steel & Gold Chain with Dual Lock / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "40mm (Integrated Two-Tone)",
+        "case_thickness": "11.2mm",
+        "movement": "Semi-Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Semi-Automatic",
+        "power_reserve": "Kinetic Rotor Assist",
+        "strap_material": "Two-Tone Steel & Gold Chain with Dual Lock",
+        "strap_width": "22mm",
+        "dial_color": "Sunburst Bottle Green Dial with Gold Accents",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-11",
+      "name": "OMEGA-SEAMASTER CO-AXIAL MASTER CHRONOMETER",
+      "brand": "Omega",
+      "category": "Automatic Watch",
+      "description": "OMEGA-SEAMASTER CO-AXIAL MASTER CHRONOMETER featuring Automatic Movement | Like Stop Watch Working | Smooth Machine Movement | Date Working | Silver Case With Black | Highly Grade Chain | Dual Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 11500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "42mm"
+      ],
+      "material": "Solid Stainless Steel Chain with Dual Lock / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "42mm",
+        "case_thickness": "13.5mm",
+        "movement": "Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Automatic",
+        "power_reserve": "48-Hour Power Reserve",
+        "strap_material": "Solid Stainless Steel Chain with Dual Lock",
+        "strap_width": "20mm",
+        "dial_color": "Matte Black Chronograph Dial with Date Window",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-12",
+      "name": "OMEGA-SEAMASTER CO-AXIAL MASTER CHRONOMETER",
+      "brand": "Omega",
+      "category": "Automatic Watch",
+      "description": "OMEGA-SEAMASTER CO-AXIAL MASTER CHRONOMETER featuring Automatic Movement | Like Stop Watch Working | Smooth Machine Movement | Date Working | Silver Case With Olive Green | Highly Grade Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 11500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "silver",
+        "green"
+      ],
+      "sizes": [
+        "42mm"
+      ],
+      "material": "Highly Grade Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "42mm",
+        "case_thickness": "13.5mm",
+        "movement": "Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Automatic",
+        "power_reserve": "48-Hour Power Reserve",
+        "strap_material": "Highly Grade Strap",
+        "strap_width": "20mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-13",
+      "name": "OMEGA-SEAMASTER CO-AXIAL MASTER CHRONOMETER",
+      "brand": "Omega",
+      "category": "Automatic Watch",
+      "description": "OMEGA-SEAMASTER CO-AXIAL MASTER CHRONOMETER featuring Automatic Movement | Like Stop Watch Working | Smooth Machine Movement | Date Working | Silver Case With Choco Brown | Highly Grade Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 11500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "silver",
+        "brown"
+      ],
+      "sizes": [
+        "42mm"
+      ],
+      "material": "Highly Grade Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "42mm",
+        "case_thickness": "13.5mm",
+        "movement": "Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Automatic",
+        "power_reserve": "48-Hour Power Reserve",
+        "strap_material": "Highly Grade Strap",
+        "strap_width": "20mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-14",
+      "name": "TAG HEUER MONACO",
+      "brand": "TAG Heuer",
+      "category": "Quartz Watch",
+      "description": "TAG HEUER MONACO featuring Smooth Machine Movement | Chronograph Working | Date Working | Highly Grade Chain | Heavy Weight | Dual Lock | Party / Official Wearing. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 9500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "39mm x 39mm"
+      ],
+      "material": "Highly Grade Chain / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "39mm x 39mm",
+        "case_thickness": "14.5mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Chain",
+        "strap_width": "22mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-15",
+      "name": "INSUCH 1998 FULLY AUTOMATIC",
+      "brand": "INSUCH",
+      "category": "Automatic Watch",
+      "description": "INSUCH 1998 FULLY AUTOMATIC featuring Fully Automatic | Silver Case With Bottle Blue Dial | Smooth Machine Movement | Highly Grade Chain | Party / Official Wearing | Box With Printing Bag. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 9500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver",
+        "blue"
+      ],
+      "sizes": [
+        "41mm"
+      ],
+      "material": "Solid Stainless Steel Chain with Dual Lock / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "41mm",
+        "case_thickness": "12.5mm",
+        "movement": "Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Automatic",
+        "power_reserve": "48-Hour Power Reserve",
+        "strap_material": "Solid Stainless Steel Chain with Dual Lock",
+        "strap_width": "20mm",
+        "dial_color": "Matte Black Chronograph Dial with Date Window",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-16",
+      "name": "INSUCH 1998 FULLY AUTOMATIC",
+      "brand": "INSUCH",
+      "category": "Automatic Watch",
+      "description": "INSUCH 1998 FULLY AUTOMATIC featuring Fully Automatic | Silver Case With Bottle Green | Smooth Machine Movement | Highly Grade Chain | Party / Official Wearing | Box With Printing Bag. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 9500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver",
+        "green"
+      ],
+      "sizes": [
+        "41mm"
+      ],
+      "material": "Solid Stainless Steel Chain with Dual Lock / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "41mm",
+        "case_thickness": "12.5mm",
+        "movement": "Automatic Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Automatic",
+        "power_reserve": "48-Hour Power Reserve",
+        "strap_material": "Solid Stainless Steel Chain with Dual Lock",
+        "strap_width": "20mm",
+        "dial_color": "Matte Black Chronograph Dial with Date Window",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-17",
+      "name": "OMEGA-SEAMASTER PROFESSIONAL",
+      "brand": "Omega",
+      "category": "Quartz Watch",
+      "description": "OMEGA-SEAMASTER PROFESSIONAL featuring Quartz Movement | Co-Axial Master Chronometer | 300m / 1000ft | Smooth Machine Movement | Date Working | Highly Grade Silicone Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 8500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "42mm"
+      ],
+      "material": "Highly Grade Silicone Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "42mm",
+        "case_thickness": "13.5mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Silicone Strap",
+        "strap_width": "20mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-18",
+      "name": "TUBULAR 1",
+      "brand": "Tubular",
+      "category": "Quartz Watch",
+      "description": "TUBULAR 1 featuring Quartz Movement | Smooth Machine Movement | Date Working | Highly Grade Leather Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 8000,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "45mm"
+      ],
+      "material": "Highly Grade Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "45mm",
+        "case_thickness": "13.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Leather Strap",
+        "strap_width": "24mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-20",
+      "name": "TUBULAR - BIG 7",
+      "brand": "Tubular",
+      "category": "Quartz Watch",
+      "description": "TUBULAR - BIG 7 featuring Quartz Movement | Smooth Machine Movement | Date Working | Highly Grade Leather Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 8000,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "52mm"
+      ],
+      "material": "Highly Grade Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "52mm",
+        "case_thickness": "15.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Leather Strap",
+        "strap_width": "26mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-21",
+      "name": "TUBULAR DIGITAL ANALOGUE",
+      "brand": "Tubular",
+      "category": "Quartz Watch",
+      "description": "TUBULAR DIGITAL ANALOGUE featuring Quartz Movement | Smooth Machine Movement | Date/Month/Alarm Working | Highly Grade Leather Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 8000,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "48mm"
+      ],
+      "material": "Highly Grade Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "48mm",
+        "case_thickness": "14.5mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Leather Strap",
+        "strap_width": "24mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-22",
+      "name": "TUBULAR 2",
+      "brand": "Tubular",
+      "category": "Quartz Watch",
+      "description": "TUBULAR 2 featuring Quartz Movement | Smooth Machine Movement | Date Working | Highly Grade Leather Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 7000,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "45mm"
+      ],
+      "material": "Highly Grade Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "45mm",
+        "case_thickness": "13.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Leather Strap",
+        "strap_width": "24mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-23",
+      "name": "TUBULAR 3",
+      "brand": "Tubular",
+      "category": "Quartz Watch",
+      "description": "TUBULAR 3 featuring Quartz Movement | Smooth Machine Movement | Date Working | Down Second Working | Highly Grade Leather Strap | Buckle Lock. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 7000,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver"
+      ],
+      "sizes": [
+        "45mm"
+      ],
+      "material": "Highly Grade Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "45mm",
+        "case_thickness": "13.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Leather Strap",
+        "strap_width": "24mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-24",
+      "name": "MARTYN LINE",
+      "brand": "Martyn Line",
+      "category": "Quartz Watch",
+      "description": "MARTYN LINE featuring Smooth Machine Movement | Rose Gold Case With White Dial | Genuine Leather Strap | Buckle Lock | Party / Official Wearing. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 6500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "gold",
+        "rose gold",
+        "white"
+      ],
+      "sizes": [
+        "43mm"
+      ],
+      "material": "Genuine Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "43mm",
+        "case_thickness": "11.5mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Genuine Leather Strap",
+        "strap_width": "22mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-25",
+      "name": "MARTYN LINE BLACK",
+      "brand": "Martyn Line",
+      "category": "Quartz Watch",
+      "description": "MARTYN LINE BLACK featuring Smooth Machine Movement | Silver Case With Golden Dial | Genuine Leather Strap | Buckle Lock | Party / Official Wearing. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 6500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver",
+        "gold"
+      ],
+      "sizes": [
+        "43mm"
+      ],
+      "material": "Genuine Leather Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "43mm",
+        "case_thickness": "11.5mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Genuine Leather Strap",
+        "strap_width": "22mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-26",
+      "name": "CARTIER",
+      "brand": "Cartier",
+      "category": "Quartz Watch",
+      "description": "CARTIER featuring Unisex | Date Working | Highly Grade Chain | Dual Lock | Down Second Working | Silver Case With Green Dial | Smooth Machine Movement. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 6500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "black",
+        "silver",
+        "green"
+      ],
+      "sizes": [
+        "38mm"
+      ],
+      "material": "Solid Stainless Steel Chain with Dual Lock / Scratch-Resistant Sapphire Crystal",
+      "attributes": {
+        "case_size": "38mm",
+        "case_thickness": "9.5mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Solid Stainless Steel Chain with Dual Lock",
+        "strap_width": "20mm",
+        "dial_color": "Matte Black Chronograph Dial with Date Window",
+        "crystal": "Scratch-Resistant Sapphire Crystal",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-27",
+      "name": "RICHARD MILLE - BLUE FABRIC STRAP METAL CASE",
+      "brand": "Richard Mille",
+      "category": "Quartz Watch",
+      "description": "RICHARD MILLE - BLUE FABRIC STRAP METAL CASE featuring Highly Fabric Strap | 2 Colours Available | Metal Case Not Plastic | Party / Casual Wearing | COD Available. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "blue"
+      ],
+      "sizes": [
+        "44mm x 50mm"
+      ],
+      "material": "Highly Fabric Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "44mm x 50mm",
+        "case_thickness": "14.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Fabric Strap",
+        "strap_width": "25mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-28",
+      "name": "RICHARD MILLE - ORANGE STRAP METAL CASE",
+      "brand": "Richard Mille",
+      "category": "Quartz Watch",
+      "description": "RICHARD MILLE - ORANGE STRAP METAL CASE featuring Highly Grade Silicone Strap | Metal Case Not Plastic | Party / Casual Wearing | COD Available. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "orange"
+      ],
+      "sizes": [
+        "44mm x 50mm"
+      ],
+      "material": "Highly Grade Silicone Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "44mm x 50mm",
+        "case_thickness": "14.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Silicone Strap",
+        "strap_width": "25mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    },
+    {
+      "sku": "csv-prod-29",
+      "name": "RICHARD MILLE - RED STRAP WHITE METAL CASE",
+      "brand": "Richard Mille",
+      "category": "Quartz Watch",
+      "description": "RICHARD MILLE - RED STRAP WHITE METAL CASE featuring Highly Grade Silicone Strap | Metal Case Not Plastic | Party / Casual Wearing | COD Available. Luxury finishing with smooth sweep movement and precision craftsmanship.",
+      "price": 4500,
+      "currency": "PKR",
+      "inStock": true,
+      "colors": [
+        "white"
+      ],
+      "sizes": [
+        "44mm x 50mm"
+      ],
+      "material": "Highly Grade Silicone Strap / Scratch-Resistant Sapphire / Hardlex Mineral",
+      "attributes": {
+        "case_size": "44mm x 50mm",
+        "case_thickness": "14.0mm",
+        "movement": "Quartz Movement · Smooth Machine Movement · Precision Timing",
+        "movement_type": "Quartz",
+        "power_reserve": "3-Year Swiss Battery",
+        "strap_material": "Highly Grade Silicone Strap",
+        "strap_width": "25mm",
+        "dial_color": "Curated Luxury Sunburst / Skeleton Dial",
+        "crystal": "Scratch-Resistant Sapphire / Hardlex Mineral",
+        "water_resistance": "5 ATM (50 Meters)",
+        "variants": "Standard Reference"
+      }
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-mi-01",
+      "intentId": "shipping_delivery",
+      "question": "What are your delivery charges and shipping times?",
+      "variations": [
+        "Delivery charges",
+        "Shipping fee",
+        "Delivery time",
+        "Kitne din mein milegi",
+        "COD charges"
+      ],
+      "answer": "🚚 **Nationwide Shipping & COD:**\n\n• **Major Cities (Lahore, Karachi, Islamabad/Rawalpindi):** 2–4 working days\n• **Nationwide Pakistan:** 4–6 working days\n• **Complimentary Insured Delivery:** Free on orders above **PKR 15,000** (PKR 500 standard courier below PKR 15,000).",
+      "tags": [
+        "shipping",
+        "delivery",
+        "cod",
+        "courier",
+        "charges"
+      ],
+      "suggestedFollowUps": [
+        "How do I place an order?",
+        "What is your return and warranty policy?"
+      ]
+    },
+    {
+      "id": "faq-mi-02",
+      "intentId": "return_exchange",
+      "question": "What is your return, exchange, and warranty policy?",
+      "variations": [
+        "Return policy",
+        "Exchange policy",
+        "Warranty",
+        "Wapsi",
+        "Damaged watch"
+      ],
+      "answer": "🛡️ **7-Day Easy Return & Exchange:**\n\n• Unused watches in original packaging can be returned or exchanged within **7 days** if damaged in transit or if an incorrect model is received.\n• Every timepiece undergoes a pre-dispatch movement & quality inspection.\n• Contact WhatsApp **+92 328 4037431** with your order details or unboxing video for quick support.",
+      "tags": [
+        "return",
+        "exchange",
+        "warranty",
+        "refund"
+      ],
+      "suggestedFollowUps": [
+        "How can I contact Mix Inventories?",
+        "Show me automatic watches"
+      ]
+    },
+    {
+      "id": "faq-mi-03",
+      "intentId": "payment_methods",
+      "question": "What payment methods do you accept?",
+      "variations": [
+        "Cash on delivery",
+        "COD available?",
+        "Bank transfer",
+        "Payment options",
+        "Paise kaise dein"
+      ],
+      "answer": "💳 **Payment Methods:**\n\n• **Cash on Delivery (COD)** nationwide across Pakistan\n• **Bank Transfer** & direct coordination via WhatsApp Concierge (**+92 328 4037431**).",
+      "tags": [
+        "payment",
+        "cod",
+        "cash on delivery",
+        "bank"
+      ],
+      "suggestedFollowUps": [
+        "What are your delivery charges?",
+        "Show me watches under 10000"
+      ]
+    },
+    {
+      "id": "faq-mi-04",
+      "intentId": "order_placement",
+      "question": "How do I place an order?",
+      "variations": [
+        "Order kaise karein",
+        "How to buy",
+        "Checkout",
+        "Book watch"
+      ],
+      "answer": "🛍️ **How to Order:**\n\n1. Tap **Add to Bag** on any timepiece and proceed to Checkout, OR\n2. Click **Order on WhatsApp** inside any watch detail view to confirm directly with our concierge (**+92 328 4037431**).",
+      "tags": [
+        "order",
+        "buy",
+        "checkout",
+        "whatsapp"
+      ],
+      "suggestedFollowUps": [
+        "Show me your watches",
+        "What is your delivery policy?"
+      ]
+    },
+    {
+      "id": "faq-mi-05",
+      "intentId": "product_recommendation",
+      "question": "What brands and movements do you offer?",
+      "variations": [
+        "Which brands",
+        "Automatic watches",
+        "Quartz watches",
+        "Semi automatic",
+        "Kaunse brands hain"
+      ],
+      "answer": "⌚ **Curated Brands & Movements:**\n\nWe curate **Omega, Tissot, Patek Philippe, Richard Mille, Cartier, TAG Heuer, Tubular, and Martyn Line** across **Automatic, Semi-Automatic, and Quartz** movements.",
+      "tags": [
+        "brands",
+        "automatic",
+        "quartz",
+        "semi-automatic"
+      ],
+      "suggestedFollowUps": [
+        "Show me Omega watches",
+        "Show me Tissot watches",
+        "Show me Patek Philippe watches"
+      ]
+    },
+    {
+      "id": "faq-mi-06",
+      "intentId": "contact_info",
+      "question": "How can I contact Mix Inventories Concierge?",
+      "variations": [
+        "Phone number",
+        "WhatsApp number",
+        "Email address",
+        "Contact info",
+        "Raabta kaise karein"
+      ],
+      "answer": "📞 **Contact Mix Inventories Concierge:**\n\n📱 **WhatsApp:** +92 328 4037431\n📧 **Email:** concierge@mixinventories.com\n📍 **Studio:** Gulberg III, Lahore, Pakistan\n🕰️ **Hours:** Mon – Sat, 11:00 AM – 10:00 PM PKT (Sunday closed)",
+      "tags": [
+        "contact",
+        "phone",
+        "whatsapp",
+        "email",
+        "hours"
+      ],
+      "suggestedFollowUps": [
+        "What are your delivery charges?",
+        "Show me bestsellers"
+      ]
+    }
+  ],
+  "policies": {
+    "shipping": {
+      "timeframe": "2–4 working days in major cities (Lahore, Karachi, Islamabad/Rawalpindi) and 4–6 working days nationwide",
+      "charges": "PKR 500 standard courier fee for orders below PKR 15,000",
+      "freeThreshold": 15000,
+      "courier": "Tracked Insured Courier (Pakistan)",
+      "sameDayCities": [],
+      "nationalDelivery": true,
+      "notes": "Nationwide Cash on Delivery (COD) across Pakistan with protective presentation packaging and dispatch confirmation via WhatsApp."
+    },
+    "returns": {
+      "windowDays": 7,
+      "exchangeAllowed": true,
+      "refundAllowed": true,
+      "condition": "Unused watch in original packaging if damaged in transit or incorrect model received",
+      "returnShippingFeeByCustomer": false,
+      "notes": "7-day easy return or exchange with unboxing video/order details via WhatsApp."
+    },
+    "warranty": {
+      "period": "Pre-Dispatch Quality Check & 7-Day Transit Protection",
+      "coverage": "Pre-dispatch movement and quality check on every timepiece",
+      "notes": "Quick support via WhatsApp (+92 328 4037431)."
+    },
+    "payment": {
+      "codAvailable": true,
+      "jazzCashAvailable": false,
+      "easyPaisaAvailable": false,
+      "cardsAccepted": [],
+      "installmentsAvailable": false,
+      "notes": "Cash on Delivery (COD) across Pakistan and direct order coordination via WhatsApp (+92 328 4037431)."
+    },
+    "authenticity": {
+      "guaranteedOriginal": true,
+      "authorizedDistributor": false,
+      "certificateIncluded": false,
+      "statement": "Every Mix Inventories timepiece undergoes a pre-dispatch movement and quality check and ships in protective presentation packaging."
+    }
+  },
+  "locale": "en-ur",
+  "label": "Mix Inventories"
+}

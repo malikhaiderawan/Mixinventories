@@ -1,0 +1,19 @@
+# Vercel Deployment Ignore
+# Ignore test suites, QA files, test runners, and demo media
+test*.js
+test*.py
+run_*.py
+*qa*.json
+qa_results*
+screenshots/
+*.log
+scratch*
+ORVEL-REAL-CUSTOMER-QA.md
+ORVEL-V3-CUSTOMER-EXPERIENCE-FINAL.md
+IMPLEMENTATION-STATUS.md
+
+qa-data/
+scripts/
+/ORVEL-*.md
+/ORVEL-*.json
+

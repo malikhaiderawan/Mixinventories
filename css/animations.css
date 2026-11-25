@@ -1,0 +1,258 @@
+/* ==========================================================================
+   ORVÉL — Fine Timepieces
+   Motion Design System: Preloader, Custom Horology Cursor, Masks & Scrub Effects
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LUXURY INTRO PRELOADER (0.8s – 1.2s)
+   -------------------------------------------------------------------------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-obsidian);
+  color: var(--color-white);
+  z-index: var(--z-preloader);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: all;
+  transition: opacity 0.8s var(--ease-luxury), visibility 0.8s;
+}
+
+.preloader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-curtain {
+  position: absolute;
+  inset: 0;
+  background-color: #17191B;
+  transform: translateY(100%);
+  z-index: 1;
+}
+
+.preloader-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.preloader-monogram {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 7.5vw, 5.8rem);
+  letter-spacing: 0.22em;
+  color: var(--color-white);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  line-height: 1;
+  margin-bottom: 0.85rem;
+  will-change: transform, opacity;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+}
+
+.preloader-monogram .brand-letters {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.preloader-monogram .gold-dot {
+  color: var(--color-champagne);
+  margin-left: 4px;
+  display: inline-block;
+  will-change: transform, opacity;
+  text-shadow: 0 0 16px rgba(198, 164, 107, 0.5);
+}
+
+.preloader-tagline {
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, 1.2vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-champagne);
+  opacity: 0;
+  transform: translateY(15px);
+  will-change: transform, opacity;
+}
+
+.preloader-progress-track {
+  width: 180px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 2rem auto 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.preloader-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-champagne);
+}
+
+/* --------------------------------------------------------------------------
+   2. CUSTOM HOROLOGY PRECISION CURSOR (POINTER DEVICES ONLY)
+   -------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor {
+    cursor: none;
+  }
+
+  body.has-custom-cursor a,
+  body.has-custom-cursor button,
+  body.has-custom-cursor .btn,
+  body.has-custom-cursor .product-card,
+  body.has-custom-cursor .bento-card,
+  body.has-custom-cursor .arch-card,
+  body.has-custom-cursor .faq-question {
+    cursor: none;
+  }
+
+  .custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-champagne);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--z-cursor);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.2s ease;
+    will-change: transform;
+  }
+
+  .custom-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(198, 164, 107, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: calc(var(--z-cursor) - 1);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s var(--ease-luxury),
+                height 0.3s var(--ease-luxury),
+                background-color 0.3s var(--ease-luxury),
+                border-color 0.3s var(--ease-luxury);
+    will-change: transform;
+  }
+
+  /* Precision Crosshairs on Ring */
+  .custom-cursor-ring::before,
+  .custom-cursor-ring::after {
+    content: '';
+    position: absolute;
+    background-color: rgba(198, 164, 107, 0.4);
+    transition: opacity 0.2s ease;
+  }
+
+  .custom-cursor-ring::before {
+    top: -4px;
+    left: 50%;
+    width: 1px;
+    height: calc(100% + 8px);
+    transform: translateX(-50%);
+  }
+
+  .custom-cursor-ring::after {
+    top: 50%;
+    left: -4px;
+    height: 1px;
+    width: calc(100% + 8px);
+    transform: translateY(-50%);
+  }
+
+  .custom-cursor-ring.is-hover {
+    width: 62px;
+    height: 62px;
+    background-color: rgba(198, 164, 107, 0.12);
+    border-color: var(--color-champagne);
+  }
+
+  .custom-cursor-ring.is-clickable {
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  .custom-cursor-ring.is-hidden,
+  .custom-cursor-dot.is-hidden {
+    opacity: 0;
+  }
+}
+
+@media (hover: none) or (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. CLIP-PATH & MASK REVEALS
+   -------------------------------------------------------------------------- */
+.reveal-clip-up {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transition: clip-path 1.2s var(--ease-luxury);
+}
+
+.reveal-clip-up.is-revealed {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.reveal-fade-up {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s var(--ease-luxury), transform 0.8s var(--ease-luxury);
+}
+
+.reveal-fade-up.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   4. ACCESSIBILITY: REDUCED MOTION
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-content,
+  .reviews-marquee {
+    animation: none !important;
+    overflow-x: auto;
+  }
+
+  .reveal-clip-up {
+    clip-path: none !important;
+  }
+
+  .reveal-fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
